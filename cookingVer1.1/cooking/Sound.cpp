@@ -2,15 +2,16 @@
 #include "DxLib.h"
 namespace Sound {
 
-	SETYPE setype;
-	int SE;
+	constexpr int SENUM = 15;
+	SETYPE se_type;
 	int BGM;
+	int SE[SENUM];
 	bool flag;
 
 	void Initialize()
 	{
-		SE = LoadSoundMem("./Sound/slashing01.ogg");
-		BGM = LoadSoundMem("./Sound/BPM140.wav");
+		SE[carrot] = LoadSoundMem("./Sound/slashing01.ogg");	//‰¼‚ÌŒø‰Ê‰¹
+		BGM = LoadSoundMem("./Sound/BPM140.wav");				//‰¼‚ÌBGM
 		flag = true;
 	}
 	void PlayBGM()
@@ -25,9 +26,21 @@ namespace Sound {
 	{
 		switch (type)
 		{
-		case carrot:
-			PlaySoundMem(SE, DX_PLAYTYPE_BACK);
-			break;
+		case carrot:      PlaySoundMem(SE[carrot],		DX_PLAYTYPE_BACK);		break;
+		case onion:       PlaySoundMem(SE[onion],		DX_PLAYTYPE_BACK);		break;
+		case broccoli:    PlaySoundMem(SE[broccoli],	DX_PLAYTYPE_BACK);		break;
+		case cabbage:     PlaySoundMem(SE[cabbage],		DX_PLAYTYPE_BACK);		break;
+		case tomato:      PlaySoundMem(SE[tomato],		DX_PLAYTYPE_BACK);		break;
+		case potato:	  PlaySoundMem(SE[potato],		DX_PLAYTYPE_BACK);		break;
+		case mouse:       PlaySoundMem(SE[mouse],		DX_PLAYTYPE_BACK);		break;
+		case meat:        PlaySoundMem(SE[meat],		DX_PLAYTYPE_BACK);		break;
+		case cuttingboard:PlaySoundMem(SE[cuttingboard],DX_PLAYTYPE_BACK);		break;
+		case simmer:      PlaySoundMem(SE[simmer],		DX_PLAYTYPE_BACK);		break;
+		case grill:		  PlaySoundMem(SE[grill],		DX_PLAYTYPE_BACK);		break;
+		case jump:		  PlaySoundMem(SE[jump],		DX_PLAYTYPE_BACK);		break;
+		case slash:		  PlaySoundMem(SE[slash],		DX_PLAYTYPE_BACK);		break;
+		case bell:		  PlaySoundMem(SE[bell],		DX_PLAYTYPE_BACK);		break;
+		case apper:		  PlaySoundMem(SE[apper],		DX_PLAYTYPE_BACK);		break;
 		}
 		return 0;
 	}

@@ -9,9 +9,9 @@ using namespace Sound;
 namespace Note {
 
 	static const int
-		SCREEN_WIDIH = 960,
-		SCREEN_HEIGHT = 540;
-	Sound::SETYPE setype;
+	SCREEN_WIDIH = 960,
+	SCREEN_HEIGHT = 540;
+	Sound::SETYPE se_type;
 	Note note_carrot;
 	POS start, dir, end;  //曲線の開始点、方向点、終点座標
 
