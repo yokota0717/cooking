@@ -2,7 +2,7 @@
 #include "DxLib.h"
 namespace Sound {
 
-	constexpr int SENUM = 15;
+	constexpr int SENUM = 20;
 	SETYPE se_type;
 	int BGM;
 	int SE[SENUM];
@@ -10,14 +10,18 @@ namespace Sound {
 
 	void Initialize()
 	{
-		SE[carrot] = LoadSoundMem("./Sound/slashing01.ogg");	//仮の効果音
-		BGM = LoadSoundMem("./Sound/BPM140.wav");				//仮のBGM
+		SE[carrot]  = LoadSoundMem("./Sound/ニンジン.ogg");
+		SE[cabbage] = LoadSoundMem("./Sound/キャベツ.ogg");
+		SE[apper]   = LoadSoundMem("./Sound/出現.ogg");
+		SE[grill]   = LoadSoundMem("./Sound/肉を焼く.ogg");
+		BGM = LoadSoundMem("./Sound/130ver.wav");				//仮のBGM
 		flag = true;
 	}
 	void PlayBGM()
 	{
 		if (flag == true)
 		{
+			ChangeVolumeSoundMem(255 * 60 / 100, BGM);
 			PlaySoundMem(BGM, DX_PLAYTYPE_LOOP);
 			flag = false;
 		}
