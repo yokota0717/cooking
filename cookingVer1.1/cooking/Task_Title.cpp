@@ -13,7 +13,7 @@ Title::Title(ISceneChanger* changer) : BaseScene(changer)
 //‰Šú‰»
 void Title::Initialize() 
 {
-	TT::Initialize();
+	Title_G::Initialize();
 }
 
 //XV
@@ -28,7 +28,7 @@ void Title::Update()
 //•`‰æ
 void Title::Draw() 
 {
-	TT::Draw();
+	Title_G::Draw();
 }
 
 void Title::Finalize()

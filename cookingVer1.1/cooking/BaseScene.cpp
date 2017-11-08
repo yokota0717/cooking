@@ -7,11 +7,10 @@ BaseScene::BaseScene(ISceneChanger* changer) :
 	mSceneChanger = changer;
 }
 
-void BaseScene::Finalize()
+void BaseScene::Finalize()	//シーン終了時に1度だけ実行される
 {
-	InitGraph();
-	InitSoundMem();
-
+	InitGraph();			//読み込んだすべての画像を解放
+	InitSoundMem();			//読み込んだすべての音楽ファイルを解放
 }
 
 void BaseScene::Draw()

@@ -1,6 +1,6 @@
 #include "DxLib.h"
 #include "titlt_aaa.h"
-namespace TT
+namespace Title_G
 {
 	int pic;
 	void Initialize()

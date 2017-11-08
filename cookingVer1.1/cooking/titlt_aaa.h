@@ -1,10 +1,8 @@
 #pragma once
-namespace TT {
+namespace Title_G	//タイトルグラフを表示する
+{
 
 	void Initialize();
-
-	
-
 	void Draw();
 
 	

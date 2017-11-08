@@ -7,7 +7,7 @@ typedef enum
 
 	Task_None,		//無し
 	
-} Scene;
+} Scene;			//Sceneを型名に
 
 //シーンを変更するためのインターフェイスクラス
 class ISceneChanger
