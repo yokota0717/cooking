@@ -145,27 +145,34 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BaseScene.cpp" />
     <ClCompile Include="BezierCurve.cpp" />
     <ClCompile Include="BgAni.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="ISceneChanger.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Notecarrot.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Sound.cpp" />
-    <ClCompile Include="title.cpp" />
+    <ClCompile Include="Task_Title.cpp" />
+    <ClCompile Include="title_aaa.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BaseScene.h" />
     <ClInclude Include="BezierCurve.h" />
     <ClInclude Include="BgAni.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="ISceneChanger.h" />
     <ClInclude Include="Note.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Sound.h" />
-    <ClInclude Include="title.h" />
+    <ClInclude Include="Task.h" />
+    <ClInclude Include="Task_Title.h" />
+    <ClInclude Include="titlt_aaa.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

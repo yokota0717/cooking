@@ -16,18 +16,21 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 	ChangeWindowMode(TRUE), DxLib_Init(), SetDrawScreen(DX_SCREEN_BACK);
 
 	SetGraphMode(SCREEN_WIDIH, SCREEN_HEIGHT, 32);
-	TitleInit();
+	SceneMgr sceneMgr;
+	sceneMgr.Initialize();
+
 	while (ScreenFlip() == 0 && ProcessMessage() == 0 && ClearDrawScreen() == 0)
 	{
 		Updata_Key();			//キー入力を有効にする
-		ChangeScene();
+		sceneMgr.Update();  //更新
+		sceneMgr.Draw();    //描画
 		if (Key(KEY_INPUT_ESCAPE) == 1)
 		{
 			break;
 		}
 	}
-	InitGraph();
-	InitSoundMem();
+
+	sceneMgr.Finalize();
 	DxLib_End();			// DXライブラリ終了処理
 	return 0;
 }
