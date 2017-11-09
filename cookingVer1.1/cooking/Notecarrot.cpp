@@ -24,8 +24,7 @@ namespace Note {
 		note_carrot.animeCnt = 0;
 		note_carrot.time = 0;
 		note_carrot.type = one;
-		note_carrot.speed = 17.8f * 2.0f;
-		note_carrot.active = true;
+		note_carrot.speed = 17.0f * 2.2f;
 		note_carrot.start.x = note_carrot.pos.x;
 		note_carrot.start.y = note_carrot.pos.y;
 		note_carrot.end.x = SCREEN_WIDIH / 2;
@@ -34,19 +33,19 @@ namespace Note {
 
 		note_carrot.dir.x = fabs(note_carrot.start.x - note_carrot.end.x) / 2 + note_carrot.end.x;
 		note_carrot.dir.y = 100;
+
+		PlaySE(apper);		//仮処理。音符が出現する処理で鳴らす。最初の拍に合わせるとリズムとりやすいかも
 	}
 
 	void Updata()
 	{
 			if (note_carrot.state == come  &&
-				note_carrot.active == true && 
 				Key(KEY_INPUT_A)==1  &&		
 				note_carrot.Cnt > 20 &&
 				note_carrot.Cnt < 30)
 			{
 				PlaySE(carrot);
 				note_carrot.state = cut;
-				note_carrot.active = false;
 			}
 			if (note_carrot.Cnt > 37)
 			{
@@ -63,11 +62,11 @@ namespace Note {
 	void Draw()
 	{
 		
-		if (note_carrot.state == come && note_carrot.active == true)	//死ぬ前の音符
+		if (note_carrot.state == come)	//死ぬ前の音符
 		{
 			DrawRotaGraph(int(note_carrot.pos.x), int(note_carrot.pos.y), 1.0, 0.0, note_carrot.picHandle[0], true);		//RotaGraphは座標が中心になる
 		}
-		if (note_carrot.state == cut &&  note_carrot.active == false)	//音符が死んだらアニメーション
+		if (note_carrot.state == cut)	//音符が死んだらアニメーション
 		{
 			DrawRotaGraph(int(note_carrot.pos.x), int(note_carrot.pos.y), 1.0, 0.0, note_carrot.picHandle[note_carrot.animeCnt / 2], true);		//RotaGraphは座標が中心になる
 		}

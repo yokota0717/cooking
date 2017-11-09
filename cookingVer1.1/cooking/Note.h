@@ -31,7 +31,6 @@ namespace Note {
 		int			   Cnt,	//フレームカウント
 				  animeCnt,	//アニメカウント	
 			  picHandle[4];	//画像
-		bool        active;	
 		State        state;
 		Type          type;	//音符の種類
 

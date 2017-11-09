@@ -1,11 +1,13 @@
 #include "DxLib.h"
 #include "title.h"
+#include "Sound.h"
 namespace Title {
 
 	int titleGraph;
 
 	void Initialize()
 	{
+		
 		titleGraph = LoadGraph("./Graph/ƒ^ƒCƒgƒ‹.bmp");
 	}
 	void Updata()
