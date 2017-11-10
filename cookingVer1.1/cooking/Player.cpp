@@ -22,7 +22,7 @@ namespace Player {
 		cock.animCnt = 0;
 	}
 
-	void Updata()
+	void Update()
 	{
 		if (Key(KEY_INPUT_RIGHT) >= 1)
 		{

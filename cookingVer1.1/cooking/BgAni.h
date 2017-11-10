@@ -3,7 +3,7 @@ namespace BgAni {
 
 	void Initialize();
 
-	void Updata();
+	void Update();
 
 	void Draw();
 

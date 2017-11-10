@@ -13,7 +13,7 @@ namespace BgAni {
 		aniCnt = 0;
 	}
 
-	void Updata()
+	void Update()
 	{
 		++aniCnt;
 		if (aniCnt >= 60) {

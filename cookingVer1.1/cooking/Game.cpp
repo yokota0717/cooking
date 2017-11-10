@@ -28,9 +28,9 @@ void Game::Update() {
 		mSceneChanger->ChangeScene(Task_Title);//シーンをタイトルに変更
 	}
 	//Sound::PlayBGM();
-	BgAni::Updata();
-	Note::Updata();
-	Player::Updata();
+	BgAni::Update();
+	Note::Update();
+	Player::Update();
 }
 
 //描画

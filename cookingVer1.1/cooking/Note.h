@@ -39,7 +39,7 @@ namespace Note {
 
 	void Initialize();
 
-	void Updata();
+	void Update();
 
 	void Draw();
 

@@ -36,7 +36,7 @@ namespace Note {
 		note_carrot.dir.y = 100;
 	}
 
-	void Updata()
+	void Update()
 	{
 			if (note_carrot.state == come  &&
 				note_carrot.active == true && 
