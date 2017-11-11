@@ -1,0 +1,15 @@
+#pragma once
+#include "DxLib.h"
+#include "Input.h"
+#include <iostream>
+#include <stack>
+#include "Scene.h"
+#include "SceneManager.h"
+#include "Title.h"
+#include "Sound.h"
+#include "Player.h"
+#include "Game.h"
+#include "Note.h"
+#include "BgAni.h"
+#include "BezierCurve.h"
+#include <cmath>
