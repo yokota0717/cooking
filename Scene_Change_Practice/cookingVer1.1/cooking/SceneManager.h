@@ -1,6 +1,6 @@
 #pragma once
 
-//シーン管理部
+//シーン管理部クラス
 
 class SceneManeger
 {
@@ -77,7 +77,7 @@ public:
 	//
 	bool isEmpty()
 	{
-		return scenes.empty();		//要素数が空かどうか調べる
+		return scenes.empty();		//要素数（シーン）が空かどうか調べる
 	}
 
 };

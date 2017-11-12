@@ -30,7 +30,7 @@ namespace Note {
 		note_carrot.dir.x = fabs(note_carrot.start.x - note_carrot.end.x) / 2 + note_carrot.end.x;
 		note_carrot.dir.y = 100;
 
-		PlaySE(apper);		//仮処理。音符が出現する処理で鳴らす。最初の拍に合わせるとリズムとりやすいかも
+		
 		if (cheak == -1)
 		{
 			return false;
@@ -39,7 +39,11 @@ namespace Note {
 	}
 
 	void Updata()
-	{
+	{		
+		if (note_carrot.Cnt == 0)
+		{
+			PlaySE(apper);		//仮処理。音符が出現する処理で鳴らす。最初の拍に合わせるとリズムとりやすいかも
+		}
 			if (note_carrot.state == come  &&
 				Key(KEY_INPUT_A)==1  &&		
 				note_carrot.Cnt > 20 &&
