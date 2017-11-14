@@ -28,9 +28,16 @@ namespace Note {
 					 start,  //出現地点
 					   dir,  //ベジエ曲線の方向点
 					   end;  //ベジエ曲線の終点、大抵は当たり判定領域
-		int			   Cnt,	//フレームカウント
-				  animeCnt,	//アニメカウント	
+		double			   Cnt;	//フレームカウント
+		int		  animeCnt,	//アニメカウント	
 			  picHandle[4];	//画像
+		double BPM;									//テンポ
+		double BGM_time;							//曲の時間
+		double beat;								//拍
+		double fourn_note;// = BPM / 60;			//4分音符
+		double eight_note;
+		double hit_time;// fourn_note * 2.0;		//実際に判定を取り始めるタイミング
+		double Bar_end;// = fourn_note * beat;			//1小節の長さ(終端
 		State        state;
 		Type          type;	//音符の種類
 

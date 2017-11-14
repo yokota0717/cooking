@@ -15,7 +15,7 @@ bool Game::Initialize()
 }
 void Game::Update()
 {
-	//Sound::PlayBGM();
+	Sound::PlayBGM();
 	BgAni::Updata();
 	Note::Updata();
 	Player::Updata();
