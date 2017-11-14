@@ -33,13 +33,13 @@ namespace Note {
 
 		note_carrot.BPM = 130;
 		note_carrot.beat = 4;
-		note_carrot.fourn_note = second / note_carrot.BPM - 0.04;
+		note_carrot.fourn_note = second / note_carrot.BPM;
 		note_carrot.eight_note = note_carrot.fourn_note / 2.0;
-		note_carrot.BGM_time = note_carrot.Bar_end * 10.0;
+		note_carrot.BGM_time = note_carrot.Bar_end * 10;
 		note_carrot.Bar_end = note_carrot.fourn_note * note_carrot.beat;
 		/*note_carrot.hit_time = note_carrot.fourn_note * 2.0;*/
 		//date.current_time = 0.0;
-		PlaySE(apper);
+		//PlaySE(apper);
 		if (cheak == -1)
 		{
 			return false;
@@ -49,42 +49,25 @@ namespace Note {
 
 	void Updata()
 	{
-
-		if (note_carrot.Cnt <= 0.0)
+		if (note_carrot.BGM_time != 0.0)
 		{
-			PlaySE(apper);		//仮処理。音符が出現する処理で鳴らす。最初の拍に合わせるとリズムとりやすいかも
-		}
-		
-		if (note_carrot.state == come &&
-			note_carrot.Cnt >= note_carrot.fourn_note
-			)
-		{
-			
-			PlaySE(carrot);
-			note_carrot.state = cut;
-			
-		}
-	
-			
-		/*if (date.BGM_time !=0 && date.current_time <= 0.0)
-		{
-			Initialize();
-		}*/
-
-		if (note_carrot.state == cut)
-		{
-			++note_carrot.animeCnt;
-			if (note_carrot.Cnt >= note_carrot.Bar_end)
+			if (note_carrot.Cnt <= 0.0)
 			{
+				PlaySE(apper);		//仮処理。音符が出現する処理で鳴らす。最初の拍に合わせるとリズムとりやすいかも
+			}
 
-				Initialize();
-				note_carrot.Cnt = 0.0;
-
+			if (note_carrot.state == come &&
+				note_carrot.Cnt >= note_carrot.fourn_note
+				)
+			{
+				PlaySE(carrot);
+				note_carrot.Cnt = 0.0;	
+				note_carrot.state = cut;
 			}
 		}
 		note_carrot.BGM_time -= 1 / 60.0;
 		note_carrot.Cnt += 1 / 60.0;
-		BezierCurve2(&note_carrot, note_carrot.start, note_carrot.dir, note_carrot.end);
+		//BezierCurve2(&note_carrot, note_carrot.start, note_carrot.dir, note_carrot.end);
 	}
 
 	void Draw()
