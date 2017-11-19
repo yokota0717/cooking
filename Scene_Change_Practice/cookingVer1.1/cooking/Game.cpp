@@ -11,7 +11,7 @@ bool Game::Initialize()
 	{
 		return false;
 	}
-	return true;		//ã‚Ì‰Šú‰»‚ª¬Œ÷‚È‚çtrue‚ğ•Ô‚·
+	return true;		
 }
 void Game::Update()
 {

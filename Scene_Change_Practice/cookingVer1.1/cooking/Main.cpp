@@ -10,11 +10,11 @@ int WINAPI WinMain(HINSTANCE,HINSTANCE,LPSTR,int)
 	SetOutApplicationLogValidFlag(FALSE);
 	//ウインドウタイトルを変更
 	SetMainWindowText("CookingMaster");
-	//ウィンドウモード変更と初期化と裏画面設定
-	ChangeWindowMode(TRUE), DxLib_Init(), SetDrawScreen(DX_SCREEN_BACK);	
 	//画面サイズ変更
 	SetGraphMode(SCREEN_WIDIH, SCREEN_HEIGHT, 32);
-
+	//ウィンドウモード変更と初期化と裏画面設定
+	ChangeWindowMode(TRUE), DxLib_Init(), SetDrawScreen(DX_SCREEN_BACK);	
+	
 	auto manager = SceneManeger::GetInstance();
 
 	//最初に映るシーン
