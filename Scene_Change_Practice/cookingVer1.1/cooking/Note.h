@@ -12,7 +12,6 @@ namespace Note {
 		one,	//単発
 		rest,	//長押し(休符)
 		mouse,	//ネズミ(下からくるよ)
-
 	}; 
 	enum State 
 	{
@@ -22,13 +21,15 @@ namespace Note {
 	};
 	struct Note 
 	{
+		int apper_note[1000];
+		int play_note_type[1000];
 		float		 speed,
 					  time;  //ベジエ曲線使うときに使ってね☆
 		POS			   pos,   //現在の座標
 					 start,  //出現地点
 					   dir,  //ベジエ曲線の方向点
 					   end;  //ベジエ曲線の終点、大抵は当たり判定領域
-		double			   Cnt;	//フレームカウント
+		double		   Cnt;	//フレームカウント
 		int		  animeCnt,	//アニメカウント	
 			  picHandle[4];	//画像
 	
@@ -37,6 +38,8 @@ namespace Note {
 		Type          type;	//音符の種類
 
 	};
+
+	bool LoadScore();
 
 	bool Initialize();
 

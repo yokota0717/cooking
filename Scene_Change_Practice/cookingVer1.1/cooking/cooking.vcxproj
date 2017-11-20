@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="BezierCurve.h" />
     <ClInclude Include="BgAni.h" />
+    <ClInclude Include="FPS.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Note.h" />
@@ -34,9 +35,10 @@
   <ItemGroup>
     <ClCompile Include="BezierCurve.cpp" />
     <ClCompile Include="BgAni.cpp" />
+    <ClCompile Include="FPS.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Input.cpp" />
-    <ClCompile Include="Notecarrot.cpp" />
+    <ClCompile Include="Note.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Sound.cpp" />

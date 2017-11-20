@@ -13,3 +13,8 @@
 #include "BgAni.h"
 #include "BezierCurve.h"
 #include <cmath>
+#include "FPS.h"
+#include <fstream>
+#include <string>
+#include <sstream> 
+using namespace std;
