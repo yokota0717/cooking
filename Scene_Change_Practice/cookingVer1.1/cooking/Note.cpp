@@ -1,15 +1,12 @@
 #include "Usingheaders.h"
 
-
-using namespace Sound;
-
 namespace Note {
 
 	static const int
-		SCREEN_WIDIH = 960,
-		SCREEN_HEIGHT = 540;
+	SCREEN_WIDIH = 960,
+	SCREEN_HEIGHT = 540;
 	double	second = 60.0;
-	Sound::SETYPE se_type;
+//	Sound sound;		//同じ名前の別のData
 	Note note;
 	POS start, dir, end;  //曲線の開始点、方向点、終点座標
 
@@ -37,7 +34,7 @@ namespace Note {
 			//文字列をint型に変換
 			note.apper_note[i] = stoi(s_appper);
 			++i;
-			if (i < num)
+			if (i > num)
 			{
 				break;
 			}
@@ -84,9 +81,11 @@ namespace Note {
 
 	void Updata()
 	{
-	
+		
 
-		BezierCurve2(&note, note.start, note.dir, note.end);
+//		note.current = GetSoundCurrentTime(sound.PlayBGM(sound.BGM));
+		//BezierCurve2(&note, note.start, note.dir, note.end);
+
 	}
 
 	void Draw()
@@ -100,7 +99,13 @@ namespace Note {
 		{
 			DrawRotaGraph(int(note.pos.x), int(note.pos.y), 1.0, 0.0, note.picHandle[note.animeCnt / 2], true);		
 		}
-		DrawFormatString(0, 0, GetColor(0, 0, 0), "経過時間（ミリ秒）%f", note.Cnt);
+
+		Sound GetSound();
+		auto sound = GetSound();
+
+		DrawFormatString(0, 80, GetColor(0, 0, 0), "(サウンドクラス内)現在の再生位置%d", GetSoundCurrentTime(sound.BGM));
+//		DrawFormatString(0, 20, GetColor(0, 0, 0), "現在の再生位置%d", GetSoundCurrentTime(sound.PlayBGM(sound.BGM)));
+//		DrawFormatString(0, 40, GetColor(0, 0, 0), "現在の再生位置%d", GetSoundTotalTime(sound.PlayBGM(sound.BGM)));
 	}
 
 	void Fin()

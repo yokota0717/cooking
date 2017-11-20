@@ -21,8 +21,11 @@ namespace Note {
 	};
 	struct Note 
 	{
-		int apper_note[1000];
-		int play_note_type[1000];
+		int			 apper_note[1000];
+		int			 play_note_type[1000];
+		int			 current;
+		int			 notenum;
+		int			 notetype;
 		float		 speed,
 					  time;  //ベジエ曲線使うときに使ってね☆
 		POS			   pos,   //現在の座標

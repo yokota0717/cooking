@@ -1,22 +1,30 @@
 #include "Usingheaders.h"
 //メインゲームシーン
-Fps fps;
+Fps fps;		//デバッグ用にFPSを表示
+Sound sound;
+
+Sound GetSound()
+{
+	return sound;
+}
+
 bool Game::Initialize()
 {
 	//初期化ミスチェック
 	if (!BgAni::Initialize() ||
 		!Note::Initialize()  ||
 		!Player::Initialize()||
-		!Sound::Initialize() ||
+		!sound.Initialize() ||
 		!Note::LoadScore())
 	{
 		return false;
 	}
+	sound.PlayBGM();
 	return true;		
 }
 void Game::Update()
 {
-	Sound::PlayBGM();
+	
 	BgAni::Updata();
 	Note::Updata();
 	Player::Updata();
@@ -38,7 +46,7 @@ void Game::Draw()
 void Game::Finalize()
 {
 	BgAni::Fin();
-	Sound::Fin();
+	sound.Fin();
 	Note::Fin();
 	Player::Fin();
     //↑の方が解放を意識できる
