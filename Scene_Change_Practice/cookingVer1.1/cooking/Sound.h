@@ -16,6 +16,7 @@ enum SETYPE
 	jump,			//ジャンプ12
 	slash,			//切る13
 	bell,			//入店音（ベル）13
+
 };
 
 
@@ -25,18 +26,21 @@ private:
 
 	static constexpr int SENUM = 20;
 	
-	bool flag;
-	int SE[SENUM];
-	SETYPE se_type;
+	
 
 public:
-	int BGM;
+	
+	bool   flag;
+	int    SE[SENUM];
+	SETYPE se_type;
+
+	int  BGM;
 
 	bool Initialize();
 
-	int PlayBGM();
+	int  PlayBGM();
 
-	int PlaySE(int);	//enum型でIDを指定、戻り値はIDに対応したSE
+	int  PlaySE(int);	//enum型でIDを指定、戻り値はIDに対応したSE
 
 	void Fin();
 

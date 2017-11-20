@@ -14,7 +14,7 @@ bool Game::Initialize()
 	if (!BgAni::Initialize() ||
 		!Note::Initialize()  ||
 		!Player::Initialize()||
-		!sound.Initialize() ||
+		!sound.Initialize()  ||
 		!Note::LoadScore())
 	{
 		return false;
@@ -24,7 +24,6 @@ bool Game::Initialize()
 }
 void Game::Update()
 {
-	
 	BgAni::Updata();
 	Note::Updata();
 	Player::Updata();
@@ -34,7 +33,6 @@ void Game::Update()
 		SceneManeger::GetInstance()->ChangeScene(new Title);
 	}
 	fps.Wait();
-
 }
 void Game::Draw()
 {
@@ -54,5 +52,4 @@ void Game::Finalize()
 
 	/*InitGraph();
 	InitSoundMem();*/
-
 }

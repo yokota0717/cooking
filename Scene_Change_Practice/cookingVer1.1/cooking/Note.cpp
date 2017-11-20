@@ -6,9 +6,11 @@ namespace Note {
 	SCREEN_WIDIH = 960,
 	SCREEN_HEIGHT = 540;
 	double	second = 60.0;
-//	Sound sound;		//同じ名前の別のData
 	Note note;
+	SETYPE se_type;
+	constexpr int num = 500;		//とりあえず音符は500まで
 	POS start, dir, end;  //曲線の開始点、方向点、終点座標
+
 
 	bool LoadScore()
 	{
@@ -22,7 +24,7 @@ namespace Note {
 			return false;
 		}
 		
-		constexpr int num = 500;		//とりあえず音符は500まで
+		
 		string s_appper;
 		string s_type;
 		int i = 0;
@@ -54,6 +56,7 @@ namespace Note {
 
 	bool Initialize()
 	{
+
 		int cheak = LoadDivGraph("./Graph/carrot.png", 4, 4, 1, 100, 100, note.picHandle);
 		note.pos.x = SCREEN_WIDIH + 50;
 		note.pos.y = SCREEN_HEIGHT / 2;
@@ -67,6 +70,8 @@ namespace Note {
 		note.end.x = SCREEN_WIDIH / 2;
 		note.end.y = SCREEN_HEIGHT / 2 + 160;
 		note.state = come;
+		note.notenum = 0;
+		note.notetype = 0;
 
 		note.dir.x = fabs(note.start.x - note.end.x) / 2 + note.end.x;
 		note.dir.y = 100;
@@ -81,10 +86,27 @@ namespace Note {
 
 	void Updata()
 	{
-		
+		Sound GetSound();
+		auto sound = GetSound();
 
-//		note.current = GetSoundCurrentTime(sound.PlayBGM(sound.BGM));
-		//BezierCurve2(&note, note.start, note.dir, note.end);
+		note.current = GetSoundCurrentTime(sound.BGM);
+
+		if (note.current >= note.apper_note[note.notenum] && note.play_note_type[note.notetype] == 0)
+		{
+			++note.notenum;
+			++note.notetype;
+			sound.PlaySE(apper);
+		}
+		if (note.current >= note.apper_note[note.notenum] && note.play_note_type[note.notetype] == 1)
+		{
+			++note.notenum;
+			++note.notetype;
+			sound.PlaySE(carrot);
+		}
+
+
+		BezierCurve2(&note, note.start, note.dir, note.end);
+
 
 	}
 
@@ -102,10 +124,11 @@ namespace Note {
 
 		Sound GetSound();
 		auto sound = GetSound();
-
+		
 		DrawFormatString(0, 80, GetColor(0, 0, 0), "(サウンドクラス内)現在の再生位置%d", GetSoundCurrentTime(sound.BGM));
-//		DrawFormatString(0, 20, GetColor(0, 0, 0), "現在の再生位置%d", GetSoundCurrentTime(sound.PlayBGM(sound.BGM)));
-//		DrawFormatString(0, 40, GetColor(0, 0, 0), "現在の再生位置%d", GetSoundTotalTime(sound.PlayBGM(sound.BGM)));
+
+		//DrawFormatString(0, 20, GetColor(0, 0, 0), "現在の再生位置%d", GetSoundCurrentTime(sound.PlayBGM(sound.BGM)));
+		//DrawFormatString(0, 40, GetColor(0, 0, 0), "現在の再生位置%d", GetSoundTotalTime(sound.PlayBGM(sound.BGM)));
 	}
 
 	void Fin()

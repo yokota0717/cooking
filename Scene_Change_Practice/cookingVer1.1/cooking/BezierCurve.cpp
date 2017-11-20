@@ -11,7 +11,7 @@ void BezierCurve2(Note::Note* note, Note::POS start, Note::POS dir, Note::POS en
 	note->pos.y = bez.y;
 	note->time += 1 / note->speed;
 
-	/*if (note->time >= 1) {
+	/*if (note->time >= 1){
 		Note::Initialize();
 	}*/
 }
