@@ -2,11 +2,14 @@
  
 bool Sound::Initialize()
 {
+	
 	SE[apper] = LoadSoundMem("./Sound/出現.ogg");
 	SE[carrot]  = LoadSoundMem("./Sound/bell.ogg");
 	SE[cabbage] = LoadSoundMem("./Sound/キャベツ.ogg");
 	SE[grill]   = LoadSoundMem("./Sound/肉を焼く.ogg");
-	BGM = LoadSoundMem("./Sound/new130.wav");				//仮のBGM
+	BGM = LoadSoundMem("./Sound/new130.wav");
+
+
 	flag = true;
 	
 	for (int i = 0; i < SENUM; ++i)
@@ -20,9 +23,12 @@ bool Sound::Initialize()
 }
 int Sound::PlayBGM()
 {
-	ChangeVolumeSoundMem(255 * 60 / 100, BGM);
-	PlaySoundMem(BGM, DX_PLAYTYPE_LOOP);
-	DrawFormatString(0, 80, GetColor(0, 0, 0), "(サウンドクラス内)現在の再生位置%d", GetSoundCurrentTime(BGM));
+	if (flag == true)
+	{
+		ChangeVolumeSoundMem(255 * 60 / 100, BGM);
+		PlaySoundMem(BGM, DX_PLAYTYPE_LOOP);
+		flag = false;
+	}
 	return BGM;
 }
 int Sound::PlaySE(int type)

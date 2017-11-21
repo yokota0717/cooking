@@ -17,7 +17,8 @@ namespace Note {
 		//•ˆ–Ê“Ç‚Ýž‚Ý
 		ifstream ifs_apper("./ScoreData/test.csv");
 		ifstream ifs_type("./ScoreData/type.csv");
-
+		note.notenum = 0;
+		note.notetype = 0;
 		//ŠJ‚©‚È‚©‚Á‚½‚çƒGƒ‰[
 		if (!ifs_apper || !ifs_type)
 		{
@@ -70,8 +71,7 @@ namespace Note {
 		note.end.x = SCREEN_WIDIH / 2;
 		note.end.y = SCREEN_HEIGHT / 2 + 160;
 		note.state = come;
-		note.notenum = 0;
-		note.notetype = 0;
+		
 
 		note.dir.x = fabs(note.start.x - note.end.x) / 2 + note.end.x;
 		note.dir.y = 100;
@@ -96,6 +96,7 @@ namespace Note {
 			++note.notenum;
 			++note.notetype;
 			sound.PlaySE(apper);
+			
 		}
 		if (note.current >= note.apper_note[note.notenum] && note.play_note_type[note.notetype] == 1)
 		{
@@ -103,9 +104,10 @@ namespace Note {
 			++note.notetype;
 			sound.PlaySE(carrot);
 		}
-
-
+		
 		BezierCurve2(&note, note.start, note.dir, note.end);
+
+		
 
 
 	}

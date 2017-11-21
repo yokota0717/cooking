@@ -46,6 +46,8 @@ namespace Note {
 
 	bool Initialize();
 
+	bool Note_Apper();
+
 	void Updata();
 
 	void Draw();

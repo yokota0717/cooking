@@ -29,13 +29,14 @@ private:
 	
 
 public:
+
 	
 	bool   flag;
 	int    SE[SENUM];
 	SETYPE se_type;
 
-	int  BGM;
-
+	int    BGM;
+	
 	bool Initialize();
 
 	int  PlayBGM();

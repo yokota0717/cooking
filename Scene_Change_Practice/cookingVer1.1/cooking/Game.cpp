@@ -10,6 +10,7 @@ Sound GetSound()
 
 bool Game::Initialize()
 {
+
 	//初期化ミスチェック
 	if (!BgAni::Initialize() ||
 		!Note::Initialize()  ||
@@ -20,11 +21,13 @@ bool Game::Initialize()
 		return false;
 	}
 	sound.PlayBGM();
+	
 	return true;		
 }
 void Game::Update()
 {
 	BgAni::Updata();
+	
 	Note::Updata();
 	Player::Updata();
 	fps.Update();
