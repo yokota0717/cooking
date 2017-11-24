@@ -3,7 +3,7 @@
 bool Sound::Initialize()
 {
 	
-	SE[apper] = LoadSoundMem("./Sound/出現.ogg");
+	SE[appear] = LoadSoundMem("./Sound/出現.ogg");
 	SE[carrot]  = LoadSoundMem("./Sound/bell.ogg");
 	SE[cabbage] = LoadSoundMem("./Sound/キャベツ.ogg");
 	SE[grill]   = LoadSoundMem("./Sound/肉を焼く.ogg");
@@ -25,7 +25,7 @@ int Sound::PlayBGM()
 {
 	if (flag == true)
 	{
-		ChangeVolumeSoundMem(255 * 60 / 100, BGM);
+		ChangeVolumeSoundMem(/*255 * 60 / 100*/50, BGM);
 		PlaySoundMem(BGM, DX_PLAYTYPE_LOOP);
 		flag = false;
 	}
@@ -50,7 +50,7 @@ int Sound::PlaySE(int type)
 	case jump:		  PlaySoundMem(SE[jump],		 DX_PLAYTYPE_BACK);	break;
 	case slash:		  PlaySoundMem(SE[slash],		 DX_PLAYTYPE_BACK);	break;
 	case bell:		  PlaySoundMem(SE[bell],		 DX_PLAYTYPE_BACK);	break;
-	case apper:		  PlaySoundMem(SE[apper],		 DX_PLAYTYPE_BACK);	break;
+	case appear:	  PlaySoundMem(SE[appear],		 DX_PLAYTYPE_BACK);	break;
 					  
 	}				  
 	return 0;		  

@@ -3,24 +3,25 @@
 namespace Note {
 
 	static const int
-	SCREEN_WIDIH = 960,
-	SCREEN_HEIGHT = 540;
+		SCREEN_WIDIH = 960,
+		SCREEN_HEIGHT = 540;
 	double	second = 60.0;
 	Note note;
-	SETYPE se_type;
+	TYPE se_type;
 	constexpr int num = 500;		//とりあえず音符は500まで
-	POS start, dir, end;  //曲線の開始点、方向点、終点座標
-
+	POS start, dir, end;			//曲線の開始点、方向点、終点座標
+	int notetime;	//後で消す
+	bool flag = false;
 
 	bool LoadScore()
 	{
 		//譜面読み込み
-		ifstream ifs_apper("./ScoreData/test.csv");
+		ifstream ifs_appear("./ScoreData/test.csv");
 		ifstream ifs_type("./ScoreData/type.csv");
 		note.notenum = 0;
 		note.notetype = 0;
 		//開かなかったらエラー
-		if (!ifs_apper || !ifs_type)
+		if (!ifs_appear || !ifs_type)
 		{
 			return false;
 		}
@@ -30,12 +31,12 @@ namespace Note {
 		string s_type;
 		int i = 0;
 		int j = 0;
-		note.apper_note[num];
+		note.appear_note[num];
 
-		while(getline(ifs_apper,s_appper,'\n'))
+		while(getline(ifs_appear,s_appper,'\n'))
 		{
 			//文字列をint型に変換
-			note.apper_note[i] = stoi(s_appper);
+			note.appear_note[i] = stoi(s_appper);
 			++i;
 			if (i > num)
 			{
@@ -75,8 +76,9 @@ namespace Note {
 
 		note.dir.x = fabs(note.start.x - note.end.x) / 2 + note.end.x;
 		note.dir.y = 100;
-
-	
+		notetime = 3692;
+		
+		
 		if (cheak == -1)
 		{
 			return false;
@@ -91,21 +93,47 @@ namespace Note {
 
 		note.current = GetSoundCurrentTime(sound.BGM);
 
-		if (note.current >= note.apper_note[note.notenum] && note.play_note_type[note.notetype] == 0)
+		if (note.current >= note.appear_note[note.notenum] && note.play_note_type[note.notetype] == appear) //出る
 		{
 			++note.notenum;
 			++note.notetype;
-			sound.PlaySE(apper);
+			notetime += 461;
+			sound.PlaySE(appear);
 			
 		}
-		if (note.current >= note.apper_note[note.notenum] && note.play_note_type[note.notetype] == 1)
+
+	
+		if (note.current >= notetime - 30)
 		{
+			if (Key(KEY_INPUT_Z) == 1)
+			{
+				flag = true;
+				sound.PlaySE(carrot);
+			}
+		}
+
+		//if (note.current >= notetime && note.play_note_type[note.notetype] == carrot)	//ジャストでなるタイミング
+		//{
+		//		
+		//		
+		//		//notetime += 461;
+		//}
+		
+		
+		if (note.current >= notetime + 30)
+		{
+			if (Key(KEY_INPUT_Z) == 1 && flag == false)
+			{
+				sound.PlaySE(carrot);
+				flag = true;
+			}
+			flag = false;
 			++note.notenum;
 			++note.notetype;
-			sound.PlaySE(carrot);
+			notetime += 461;
 		}
-		
-		BezierCurve2(&note, note.start, note.dir, note.end);
+
+		//BezierCurve2(&note, note.start, note.dir, note.end);
 
 		
 
@@ -128,9 +156,9 @@ namespace Note {
 		auto sound = GetSound();
 		
 		DrawFormatString(0, 80, GetColor(0, 0, 0), "(サウンドクラス内)現在の再生位置%d", GetSoundCurrentTime(sound.BGM));
-
-		//DrawFormatString(0, 20, GetColor(0, 0, 0), "現在の再生位置%d", GetSoundCurrentTime(sound.PlayBGM(sound.BGM)));
-		//DrawFormatString(0, 40, GetColor(0, 0, 0), "現在の再生位置%d", GetSoundTotalTime(sound.PlayBGM(sound.BGM)));
+		DrawFormatString(0, 40, GetColor(0, 0, 0), "出現音符数%d", note.notenum);
+		DrawFormatString(0, 20, GetColor(0, 0, 0), "音符の種類%d", note.play_note_type[note.notetype]);
+		
 	}
 
 	void Fin()

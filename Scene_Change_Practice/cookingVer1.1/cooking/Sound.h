@@ -1,7 +1,8 @@
 #pragma once
-enum SETYPE
+enum TYPE
 {
-	apper,			//音符出現音0
+
+	appear,			//音符出現音0
 	carrot,			//ニンジン1
 	onion,			//タマネギ2
 	broccoli,		//ブロッコリー3
@@ -9,13 +10,17 @@ enum SETYPE
 	tomato,			//トマト5
 	potato,			//ジャガイモ6
 	mouse,			//ネズミ7
+
+
+
+
 	meat,			//肉8
 	cuttingboard,	//まな板9
 	simmer,			//煮る10
 	grill,			//焼く11
 	jump,			//ジャンプ12
 	slash,			//切る13
-	bell,			//入店音（ベル）13
+	bell,			//入店音（ベル）14
 
 };
 
@@ -33,7 +38,7 @@ public:
 	
 	bool   flag;
 	int    SE[SENUM];
-	SETYPE se_type;
+	TYPE se_type;
 
 	int    BGM;
 	

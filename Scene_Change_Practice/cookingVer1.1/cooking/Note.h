@@ -21,8 +21,9 @@ namespace Note {
 	};
 	struct Note 
 	{
-		int			 apper_note[1000];
+		int			 appear_note[1000];
 		int			 play_note_type[1000];
+		int			 note_hit[1000];
 		int			 current;
 		int			 notenum;
 		int			 notetype;
@@ -46,7 +47,7 @@ namespace Note {
 
 	bool Initialize();
 
-	bool Note_Apper();
+	//bool Note_Apper();
 
 	void Updata();
 
