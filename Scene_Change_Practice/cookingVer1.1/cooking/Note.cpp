@@ -10,8 +10,8 @@ namespace Note {
 	TYPE se_type;
 	constexpr int num = 500;		//とりあえず音符は500まで
 	POS start, dir, end;			//曲線の開始点、方向点、終点座標
-	int notetime;	//後で消す
-	bool flag = false;
+	int notetime;	//判定を取るタイミング、後で直す
+	bool flag = false;	//判定用
 
 	bool LoadScore()
 	{
@@ -99,35 +99,27 @@ namespace Note {
 			++note.notetype;
 			notetime += 461;
 			sound.PlaySE(appear);
-			
+			flag = false;
 		}
 
 	
-		if (note.current >= notetime - 30)
+		if (note.current >= notetime - 100 && flag == false)
 		{
+			
 			if (Key(KEY_INPUT_Z) == 1)
 			{
 				flag = true;
 				sound.PlaySE(carrot);
 			}
+			
 		}
-
-		//if (note.current >= notetime && note.play_note_type[note.notetype] == carrot)	//ジャストでなるタイミング
-		//{
-		//		
-		//		
-		//		//notetime += 461;
-		//}
-		
-		
-		if (note.current >= notetime + 30)
+		if (note.current >= notetime + 100)
 		{
 			if (Key(KEY_INPUT_Z) == 1 && flag == false)
 			{
 				sound.PlaySE(carrot);
 				flag = true;
 			}
-			flag = false;
 			++note.notenum;
 			++note.notetype;
 			notetime += 461;
