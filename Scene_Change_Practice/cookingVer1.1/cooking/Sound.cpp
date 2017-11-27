@@ -7,7 +7,7 @@ bool Sound::Initialize()
 	SE[carrot]  = LoadSoundMem("./Sound/bell.ogg");
 	SE[cabbage] = LoadSoundMem("./Sound/ƒLƒƒƒxƒc.ogg");
 	SE[grill]   = LoadSoundMem("./Sound/“÷‚ğÄ‚­.ogg");
-	BGM = LoadSoundMem("./Sound/new130.wav");
+	BGM = LoadSoundMem("./Sound/–¢Š®¬.wav");
 
 
 	flag = true;
@@ -25,7 +25,7 @@ int Sound::PlayBGM()
 {
 	if (flag == true)
 	{
-		ChangeVolumeSoundMem(/*255 * 60 / 100*/50, BGM);
+		ChangeVolumeSoundMem(255 * 80 / 100, BGM);
 		PlaySoundMem(BGM, DX_PLAYTYPE_LOOP);
 		flag = false;
 	}
