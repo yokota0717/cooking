@@ -34,6 +34,9 @@
     <ClCompile Include="Note.cpp">
       <Filter>ソース</Filter>
     </ClCompile>
+    <ClCompile Include="BGM.cpp">
+      <Filter>ソース</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Usingheaders.h">
@@ -70,6 +73,9 @@
       <Filter>ヘッダ</Filter>
     </ClInclude>
     <ClInclude Include="BezierCurve.h">
+      <Filter>ヘッダ</Filter>
+    </ClInclude>
+    <ClInclude Include="BGM.h">
       <Filter>ヘッダ</Filter>
     </ClInclude>
   </ItemGroup>

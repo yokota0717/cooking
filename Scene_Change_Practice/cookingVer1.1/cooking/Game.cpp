@@ -16,7 +16,8 @@ bool Game::Initialize()
 		!Note::Initialize()  ||
 		!Player::Initialize()||
 		!sound.Initialize()  ||
-		!Note::LoadScore())
+		!Note::LoadScore()   ||
+		!BGM::Initialize())
 	{
 		return false;
 	}
@@ -27,7 +28,7 @@ bool Game::Initialize()
 void Game::Update()
 {
 	BgAni::Updata();
-	
+	BGM::Updata();
 	Note::Updata();
 	Player::Updata();
 	fps.Update();
@@ -39,6 +40,7 @@ void Game::Update()
 }
 void Game::Draw()
 {
+	BGM::Draw();
 	BgAni::Draw();
 	Note::Draw();
 	Player::Draw();
@@ -46,6 +48,7 @@ void Game::Draw()
 }
 void Game::Finalize()
 {
+	BGM::Fin();
 	BgAni::Fin();
 	sound.Fin();
 	Note::Fin();

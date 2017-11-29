@@ -17,4 +17,5 @@
 #include <fstream>
 #include <string>
 #include <sstream> 
+#include "BGM.h"
 using namespace std;
