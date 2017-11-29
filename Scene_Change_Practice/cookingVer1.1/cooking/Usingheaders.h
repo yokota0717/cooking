@@ -10,12 +10,11 @@
 #include "Player.h"
 #include "Game.h"
 #include "Note.h"
-#include "BgAni.h"
 #include "BezierCurve.h"
 #include <cmath>
 #include "FPS.h"
 #include <fstream>
 #include <string>
 #include <sstream> 
-#include "BGM.h"
+#include "Metronome.h"
 using namespace std;

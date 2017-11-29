@@ -12,12 +12,12 @@ bool Game::Initialize()
 {
 
 	//初期化ミスチェック
-	if (!BgAni::Initialize() ||
+	if (
 		!Note::Initialize()  ||
 		!Player::Initialize()||
 		!sound.Initialize()  ||
 		!Note::LoadScore()   ||
-		!BGM::Initialize())
+		!Metronome::Initialize())
 	{
 		return false;
 	}
@@ -27,10 +27,10 @@ bool Game::Initialize()
 }
 void Game::Update()
 {
-	BgAni::Updata();
-	BGM::Updata();
-	Note::Updata();
-	Player::Updata();
+	
+	Metronome::Update();
+	Note::Update();
+	Player::Update();
 	fps.Update();
 	if (Key(KEY_INPUT_X) == 1)
 	{
@@ -40,16 +40,16 @@ void Game::Update()
 }
 void Game::Draw()
 {
-	BGM::Draw();
-	BgAni::Draw();
+	Metronome::Draw();
+	
 	Note::Draw();
 	Player::Draw();
 	fps.Draw();
 }
 void Game::Finalize()
 {
-	BGM::Fin();
-	BgAni::Fin();
+	Metronome::Fin();
+	
 	sound.Fin();
 	Note::Fin();
 	Player::Fin();

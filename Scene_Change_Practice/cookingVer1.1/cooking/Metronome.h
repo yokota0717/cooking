@@ -1,18 +1,17 @@
 #pragma once
-namespace BGM {
-	struct Bgm {
+namespace Metronome {
+	struct StaffAnimation {
 		float BPM ;				//曲BPM
 		float second ;			//1秒
 		int singlfps ;		//1フレーム分の時間[ms]
 
 		int beat ;					//拍子
 		float sibu ;		//4分音符1個分の終了点
-		int SE;
-		int BGM;
 		int cnt;
 		bool flag;
 		int current;
 
+		int bg1;    //キッチン
 		int bg2;	//テーブルと床
 		int chef[3];
 		int chefY;	//コックさんのＹの値
@@ -23,7 +22,7 @@ namespace BGM {
 	
 	bool Initialize();
 
-	void Updata();
+	void Update();
 
 	void Draw();
 

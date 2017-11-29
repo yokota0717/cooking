@@ -20,7 +20,7 @@ namespace Player
 
 	bool Initialize();
 
-	void Updata();
+	void Update();
 
 	void Draw();
 

@@ -21,12 +21,12 @@ namespace Note {
 	};
 	struct Note 
 	{
-		int			 appear_note[1000];
-		int			 play_note_type[1000];
-		int			 note_hit[1000];
+		int			 just_Note[1000];	//音符の判定の情報
+		int			 ID[1000];			//音符の画像とSEのID
+		int			 note_appear[1000];	//音符の出現時間(SE鳴らしたいだけ)
 		int			 current;
 		int			 notenum;
-		int			 notetype;
+		int			 IDnum;			//画像とSEのデータのカウンタ
 		float		 speed,
 					  time;  //ベジエ曲線使うときに使ってね☆
 		POS			   pos,   //現在の座標
@@ -49,7 +49,7 @@ namespace Note {
 
 	//bool Note_Apper();
 
-	void Updata();
+	void Update();
 
 	void Draw();
 

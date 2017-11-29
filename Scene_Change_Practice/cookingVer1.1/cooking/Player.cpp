@@ -25,7 +25,7 @@ namespace Player {
 		return true;
 	}
 
-	void Updata()
+	void Update()
 	{
 		if (Key(KEY_INPUT_RIGHT) >= 1)
 		{

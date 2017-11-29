@@ -22,9 +22,6 @@
     <ClCompile Include="Game.cpp">
       <Filter>ソース</Filter>
     </ClCompile>
-    <ClCompile Include="BgAni.cpp">
-      <Filter>ソース</Filter>
-    </ClCompile>
     <ClCompile Include="BezierCurve.cpp">
       <Filter>ソース</Filter>
     </ClCompile>
@@ -34,7 +31,7 @@
     <ClCompile Include="Note.cpp">
       <Filter>ソース</Filter>
     </ClCompile>
-    <ClCompile Include="BGM.cpp">
+    <ClCompile Include="Metronome.cpp">
       <Filter>ソース</Filter>
     </ClCompile>
   </ItemGroup>
@@ -69,13 +66,10 @@
     <ClInclude Include="FPS.h">
       <Filter>ヘッダ</Filter>
     </ClInclude>
-    <ClInclude Include="BgAni.h">
-      <Filter>ヘッダ</Filter>
-    </ClInclude>
     <ClInclude Include="BezierCurve.h">
       <Filter>ヘッダ</Filter>
     </ClInclude>
-    <ClInclude Include="BGM.h">
+    <ClInclude Include="Metronome.h">
       <Filter>ヘッダ</Filter>
     </ClInclude>
   </ItemGroup>

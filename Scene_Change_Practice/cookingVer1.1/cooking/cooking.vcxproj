@@ -20,8 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BezierCurve.h" />
-    <ClInclude Include="BgAni.h" />
-    <ClInclude Include="BGM.h" />
+    <ClInclude Include="Metronome.h" />
     <ClInclude Include="FPS.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Input.h" />
@@ -35,8 +34,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="BezierCurve.cpp" />
-    <ClCompile Include="BgAni.cpp" />
-    <ClCompile Include="BGM.cpp" />
+    <ClCompile Include="Metronome.cpp" />
     <ClCompile Include="FPS.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Input.cpp" />
