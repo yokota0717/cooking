@@ -1,4 +1,5 @@
 #pragma once
+
 struct POS
 {			//座標
 	float x;
@@ -17,6 +18,12 @@ enum State
 	cut,
 	off,
 };
+enum Hit
+{
+	Normal,
+	hit,
+	miss,
+};
 struct Move		//音符の動き（移動とアニメーション）
 {
 	POS		     pos,
@@ -33,15 +40,16 @@ struct Move		//音符の動き（移動とアニメーション）
 };
 struct Data		//音符の判定などの情報
 {
-	int    judge[100],		//判定時間
+	int	   judge[100],		//判定時間
 		      ID[100],		//画像とSEの情報
 		  appear[100],		//出現時間
-		       current,		//曲の再生場所
-				//添え字
-		         j_cnt,		//判定数
-		  	    ID_cnt,		//次のIDに進める
-		         a_cnt;		//出現数
-		
+		      current,		//曲の再生場所
+		      //添え字
+		        j_cnt,		//判定数
+	           ID_cnt,		//次のIDに進める
+	            a_cnt,		//出現数
+		        score;		//得点
+		Hit       hit;		//判定用
 		
 };
 class Note
@@ -49,6 +57,7 @@ class Note
 public:
 	Data data;
 	Move move;
+	
 
 	bool LoadScore();
 
@@ -61,3 +70,6 @@ public:
 	void Fin();
 };
 
+bool Note_Check_Good(int c, int j);
+bool Note_Check_Cool(int c, int j);
+bool Note_Check_Bad(int c, int j);

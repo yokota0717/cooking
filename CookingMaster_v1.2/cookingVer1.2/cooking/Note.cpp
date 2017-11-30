@@ -3,6 +3,8 @@ static const int
 SCREEN_WIDIH = 960,
 SCREEN_HEIGHT = 540;
 
+static constexpr int Input_Reception_MAX = 50;
+
 
 bool Note::LoadScore()
 {
@@ -62,8 +64,42 @@ bool Note::LoadScore()
 	return true;
 
 }
+//バッド判定
+bool Note_Check_Bad(int c, int j)
+{
+	if (c >= j - Input_Reception_MAX &&
+		c >= j + Input_Reception_MAX)
+	{
+		return true;
+	}
+	return false;
+}
+//グッド判定
+bool Note_Check_Good(int c, int j)
+{
+	static constexpr int GOOD = 45;
+	
+	if (c >= j - GOOD &&
+		c <= j + GOOD &&
+		Key(KEY_INPUT_Z) == 1)
+	{
+		return true;
+	}
+	return false;
+}
+//クール判定
+bool Note_Check_Cool(int c, int j)
+{
+	static constexpr int COOL = 8;
 
-
+	if (c >= j - COOL &&
+		c <= j + COOL &&
+		Key(KEY_INPUT_Z) == 1)
+	{
+		return true;
+	}
+	return false;
+}
 bool Note::Initialize()
 {
 	
@@ -79,14 +115,13 @@ bool Note::Initialize()
 	move.end.x = SCREEN_WIDIH / 2;
 	move.end.y = SCREEN_HEIGHT / 2 + 160;
 	move.state = come;
-	
 	move.dir.x = fabs(move.start.x - move.end.x) / 2 + move.end.x;
 	move.dir.y = 100;
 
 	data.a_cnt = 0;
 	data.ID_cnt = 0;
 	data.j_cnt = 0;
-
+	data.hit = Normal;
 
 	if (check == -1)
 	{
@@ -97,10 +132,10 @@ bool Note::Initialize()
 
 }
 
+
+
 void Note::Update()
 {
-	
-
 	Sound GetSound();
 	auto sound = GetSound();
 
@@ -113,18 +148,44 @@ void Note::Update()
 
 	}
 	//判定
-	if (data.current >= data.judge[data.j_cnt])
+	switch (data.hit)
 	{
-		sound.PlaySE(carrot);
+	case Normal:
+		if (Note_Check_Cool(data.current, data.judge[data.j_cnt]) && data.hit == Normal)
+		{
+			sound.PlaySE(data.ID[data.ID_cnt]);
+			data.score += 10;
+			data.hit = hit;
+		}
+		if (Note_Check_Good(data.current, data.judge[data.j_cnt]) && data.hit == Normal)
+		{
+			sound.PlaySE(data.ID[data.ID_cnt]);
+
+			data.score += 2;
+			data.hit = hit;
+		}
+		//判定時間内に入力がない場合
+		else if (Note_Check_Bad(data.current, data.judge[data.j_cnt]) && data.hit == Normal)
+		{
+			data.hit = miss;
+		}
+	
+			break;
+	case hit:
 		++data.j_cnt;
 		++data.ID_cnt;
+		data.hit = Normal;
+		break;
+	case miss:
+		++data.j_cnt;
+		++data.ID_cnt;
+		data.hit = Normal;
+		break;
 
+	default:
 
+		break;
 	}
-
-
-
-
 
 }
 
@@ -143,6 +204,9 @@ void Note::Draw()
 	Sound GetSound();
 	auto sound = GetSound();
 
+
+	//デバッグ用処理、リリース時には消す
+	DrawFormatString(0, 0, GetColor(0, 0, 0), "得点（仮）:%d", data.score);
 	DrawFormatString(0, 80, GetColor(0, 0, 0), "(サウンドクラス内)現在の再生位置%d", GetSoundCurrentTime(sound.BGM));
 	DrawFormatString(0, 60, GetColor(0, 0, 0), "音符ID:%d", data.ID[data.ID_cnt]);
 	DrawFormatString(0, 40, GetColor(0, 0, 0), "出現音符数:%d", data.a_cnt);
