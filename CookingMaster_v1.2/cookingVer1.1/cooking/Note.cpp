@@ -1,163 +1,159 @@
 #include "Usingheaders.h"
+static const int
+SCREEN_WIDIH = 960,
+SCREEN_HEIGHT = 540;
 
-namespace Note {
 
-	static const int
-		SCREEN_WIDIH = 960,
-		SCREEN_HEIGHT = 540,
-		QUARTER_NOTE = 461;				//リズムの最小単位(4分音符)
-	double	second = 60.0;
-	Note note;
-	TYPE se_type;
-	constexpr int num = 500;		//とりあえず音符は500が上限
-	POS start, dir, end;			//曲線の開始点、方向点、終点座標
+bool Note::LoadScore()
+{
+
+	//譜面読み込み
+	ifstream ifs_noteJust("./ScoreData/Scoredata.csv");		//音符のジャストの判定タイミング
+	ifstream ifs_type("./ScoreData/type.csv");				//音符の画像とSEのデータ
+	ifstream ifs_appaer("./ScoreData/appear.csv");
+
+
+	
+	//開かなかったらエラー
+	if (!ifs_noteJust || !ifs_type || !ifs_appaer)
+	{
+		return false;
+	}
+
+	string s_judeg;
+	string s_ID;
+	string s_appear;
+	//ループ用変数
+	int j = 0;
+	int i = 0;
+	int a = 0;
+
+	while (getline(ifs_noteJust, s_judeg, '\n'))
+	{
+		//文字列をint型に変換
+		data.judge[j] = stoi(s_judeg);
+		++j;
+		if (i > 100)
+		{
+			break;
+		}
+	}
+	while (getline(ifs_type, s_ID, '\n'))
+	{
+		//文字列をint型に変換
+		data.ID[i] = stoi(s_ID);
+		++i;
+		if (i > 100)
+		{
+			break;
+		}
+	}
+	while (getline(ifs_appaer, s_appear, '\n'))
+	{
+		//文字列をint型に変換
+		data.appear[a] = stoi(s_appear);
+		++a;
+		if (a > 100)
+		{
+			break;
+		}
+	}
+
+	return true;
+
+}
+
+
+bool Note::Initialize()
+{
+	
+	int check = LoadDivGraph("./Graph/carrot.png", 4, 4, 1, 100, 100, move.picHandle);
+	move.pos.x = SCREEN_WIDIH + 50;
+	move.pos.y = SCREEN_HEIGHT / 2;
+	move.animeCnt = 0;
+	move.time = 0;
+	move.note_type = N_one;
+	move.speed = 17.0f * 2.2f;
+	move.start.x = move.pos.x;
+	move.start.y = move.pos.y;
+	move.end.x = SCREEN_WIDIH / 2;
+	move.end.y = SCREEN_HEIGHT / 2 + 160;
+	move.state = come;
+	
+	move.dir.x = fabs(move.start.x - move.end.x) / 2 + move.end.x;
+	move.dir.y = 100;
+
+	data.a_cnt = 0;
+	data.ID_cnt = 0;
+	data.j_cnt = 0;
+
+
+	if (check == -1)
+	{
+		return false;
+	}
+
+	return true;
+
+}
+
+void Note::Update()
+{
 	
 
-	bool LoadScore()
+	Sound GetSound();
+	auto sound = GetSound();
+
+	data.current = GetSoundCurrentTime(sound.BGM);
+	//出現
+	if (data.current >= data.appear[data.a_cnt])
 	{
-		//譜面読み込み
-		ifstream ifs_noteJust("./ScoreData/Scoredata.csv");		//音符のジャストの判定タイミング
-		ifstream ifs_type("./ScoreData/type.csv");				//音符の画像とSEのデータ
-		ifstream ifs_appaer("./ScoreData/appear.csv");
-
-		note.notenum = 0;
-		note.IDnum = 0;
-		note.appeared = 0;
-		//開かなかったらエラー
-		if (!ifs_noteJust || !ifs_type || !ifs_appaer)
-		{
-			return false;
-		}
-		
-		
-		string s_just;
-		string s_type;
-		string s_appear;
-		int i = 0;
-		int j = 0;
-		int s = 0;
-		
-
-		while(getline(ifs_noteJust,s_just,'\n'))
-		{
-			//文字列をint型に変換
-			note.just_Note[i] = stoi(s_just);
-			++i;
-			if (i > num)
-			{
-				break;
-			}
-		}
-		while (getline(ifs_type, s_type, '\n'))
-		{
-			//文字列をint型に変換
-			note.ID[j] = stoi(s_type);
-			++j;
-			if (j > num)
-			{
-				break;
-			}
-		}
-		while (getline(ifs_appaer, s_appear, '\n'))
-		{
-			//文字列をint型に変換
-			note.note_appear[s] = stoi(s_appear);
-			++s;
-			if (s > num)
-			{
-				break;
-			}
-		}
-		return true;
-	}
-
-	bool Initialize()
-	{
-
-		int cheak = LoadDivGraph("./Graph/carrot.png", 4, 4, 1, 100, 100, note.picHandle);
-		note.pos.x = SCREEN_WIDIH + 50;
-		note.pos.y = SCREEN_HEIGHT / 2;
-		note.animeCnt = 0;
-		note.time = 0;
-		note.type = one;
-		note.speed = 17.0f * 2.2f;
-		note.start.x = note.pos.x;
-		note.start.y = note.pos.y;
-		note.end.x = SCREEN_WIDIH / 2;
-		note.end.y = SCREEN_HEIGHT / 2 + 160;
-		note.state = come;
-		note.notenum = 0;
-
-
-		note.dir.x = fabs(note.start.x - note.end.x) / 2 + note.end.x;
-		note.dir.y = 100;
-
-		
-		
-		if (cheak == -1)
-		{
-			return false;
-		}
-		return true;
-	}
-
-	void Update()
-	{
-		
-		Sound GetSound();
-		auto sound = GetSound();
-		
-		note.current = GetSoundCurrentTime(sound.BGM);
-		//出現
-		if (note.current >= note.note_appear[note.appeared])
-		{
-			sound.PlaySE(appear);
-			
-			
-			++note.appeared;
-		}
-		//判定
-		if (note.current >= note.just_Note[note.IDnum])
-		{
-			sound.PlaySE(carrot);
-			++note.notenum;
-			++note.IDnum;
-			
-
-		}
-		
-
-		//BezierCurve2(&note, note.start, note.dir, note.end);
+		sound.PlaySE(appear);
+		++data.a_cnt;
 
 	}
-	
-	void Draw()
+	//判定
+	if (data.current >= data.judge[data.j_cnt])
 	{
+		sound.PlaySE(carrot);
+		++data.j_cnt;
+		++data.ID_cnt;
 
-		if (note.state == come)	//死ぬ前の音符
-		{
-			DrawRotaGraph(int(note.pos.x), int(note.pos.y), 1.0, 0.0, note.picHandle[0], true);		
-		}
-		if (note.state == cut)	//音符が死んだらアニメーション
-		{
-			DrawRotaGraph(int(note.pos.x), int(note.pos.y), 1.0, 0.0, note.picHandle[note.animeCnt / 2], true);		
-		}
 
-		Sound GetSound();
-		auto sound = GetSound();
-		
-		DrawFormatString(0, 80, GetColor(0, 0, 0), "(サウンドクラス内)現在の再生位置%d", GetSoundCurrentTime(sound.BGM));
-		DrawFormatString(0, 40, GetColor(0, 0, 0), "出現音符数:%d", note.appeared);
-		DrawFormatString(0, 20, GetColor(0, 0, 0), "判定済みの音符:%d", note.notenum);
-		
 	}
 
-	void Fin()
-	{
-		for (int i = 0; i < 4; ++i)
-		{
-			DeleteGraph(note.picHandle[i]);
-		}
 
+
+
+
+}
+
+void Note::Draw()
+{
+
+	if (move.state == come)	//死ぬ前の音符
+	{
+		DrawRotaGraph(int(move.pos.x), int(move.pos.y), 1.0, 0.0, move.picHandle[0], true);
+	}
+	if (move.state == cut)	//音符が死んだらアニメーション
+	{
+		DrawRotaGraph(int(move.pos.x), int(move.pos.y), 1.0, 0.0, move.picHandle[move.animeCnt / 2], true);
+	}
+
+	Sound GetSound();
+	auto sound = GetSound();
+
+	DrawFormatString(0, 80, GetColor(0, 0, 0), "(サウンドクラス内)現在の再生位置%d", GetSoundCurrentTime(sound.BGM));
+	DrawFormatString(0, 60, GetColor(0, 0, 0), "音符ID:%d", data.ID[data.ID_cnt]);
+	DrawFormatString(0, 40, GetColor(0, 0, 0), "出現音符数:%d", data.a_cnt);
+	DrawFormatString(0, 20, GetColor(0, 0, 0), "判定済みの音符:%d", data.j_cnt);
+
+}
+
+void Note::Fin()
+{
+	for (int i = 0; i < 4; ++i)
+	{
+		DeleteGraph(move.picHandle[i]);
 	}
 }

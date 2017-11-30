@@ -1,57 +1,63 @@
 #pragma once
-namespace Note {
+struct POS
+{			//座標
+	float x;
+	float y;
+};
+enum N_Type
+{			//音符のタイプ
 
-	struct POS
-	{			//座標
-		float x;
-		float y;
-	};
-	enum Type
-	{			//音符のタイプ
+	N_one,	//単発
+	N_rest,	//長押し(休符)
+	N_mouse,	//ネズミ(下からくるよ)
+}; 
+enum State 
+{
+	come,
+	cut,
+	off,
+};
+struct Move		//音符の動き（移動とアニメーション）
+{
+	POS		     pos,
+			   start,
+			     dir,
+		         end;
+	State	   state;
+	N_Type note_type;
+	int			time;
+	float      speed;
+	int	    animeCnt;
+	int picHandle[4];
 
-		one,	//単発
-		rest,	//長押し(休符)
-		mouse,	//ネズミ(下からくるよ)
-	}; 
-	enum State 
-	{
-		come,
-		cut,
-		off,
-	};
-	struct Note 
-	{
-		int			 just_Note[1000];	//音符の判定の情報
-		int			 ID[1000];			//音符の画像とSEのID
-		int			 note_appear[1000];	//音符の出現時間(SE鳴らしたいだけ)
-		int			 current;
-		int			 notenum;		//判定音符数
-		int			 appeared;		//出現音符数
-		int			 IDnum;			//画像とSEのデータのカウンタ
-		float		 speed,
-					  time;  //ベジエ曲線使うときに使ってね☆
-		POS			   pos,   //現在の座標
-					 start,  //出現地点
-					   dir,  //ベジエ曲線の方向点
-					   end;  //ベジエ曲線の終点、大抵は当たり判定領域
-		int		  animeCnt,	//アニメカウント	
-			  picHandle[4];	//画像
-	
+};
+struct Data		//音符の判定などの情報
+{
+	int    judge[100],		//判定時間
+		      ID[100],		//画像とSEの情報
+		  appear[100],		//出現時間
+		       current,		//曲の再生場所
+				//添え字
+		         j_cnt,		//判定数
+		  	    ID_cnt,		//次のIDに進める
+		         a_cnt;		//出現数
 		
-		State        state;
-		Type          type;	//音符の種類
-
-	};
+		
+};
+class Note
+{
+public:
+	Data data;
+	Move move;
 
 	bool LoadScore();
 
 	bool Initialize();
-
-	//bool Note_Apper();
 
 	void Update();
 
 	void Draw();
 
 	void Fin();
-}
+};
+

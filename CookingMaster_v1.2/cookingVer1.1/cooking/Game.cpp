@@ -2,7 +2,10 @@
 //メインゲームシーン
 Fps fps;		//デバッグ用にFPSを表示
 Sound sound;
-
+Note note;
+static const int
+SCREEN_WIDIH = 960,
+SCREEN_HEIGHT = 540;
 Sound GetSound()
 {
 	return sound;
@@ -13,10 +16,10 @@ bool Game::Initialize()
 
 	//初期化ミスチェック
 	if (
-		!Note::Initialize()  ||
+		!note.Initialize()   ||
 		!Player::Initialize()||
 		!sound.Initialize()  ||
-		!Note::LoadScore()   ||
+		!note.LoadScore()    ||
 		!Metronome::Initialize())
 	{
 		return false;
@@ -29,7 +32,7 @@ void Game::Update()
 {
 	
 	Metronome::Update();
-	Note::Update();
+	note.Update();
 	Player::Update();
 	fps.Update();
 	if (Key(KEY_INPUT_X) == 1)
@@ -42,7 +45,7 @@ void Game::Draw()
 {
 	Metronome::Draw();
 	
-	Note::Draw();
+	note.Draw();
 	Player::Draw();
 	fps.Draw();
 }
@@ -51,7 +54,7 @@ void Game::Finalize()
 	Metronome::Fin();
 	
 	sound.Fin();
-	Note::Fin();
+	note.Fin();
 	Player::Fin();
     //↑の方が解放を意識できる
 	//↓だと勝手に全部解放してくれる
