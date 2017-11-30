@@ -18,11 +18,13 @@ namespace Note {
 		//譜面読み込み
 		ifstream ifs_noteJust("./ScoreData/Scoredata.csv");		//音符のジャストの判定タイミング
 		ifstream ifs_type("./ScoreData/type.csv");				//音符の画像とSEのデータ
-		
+		ifstream ifs_appaer("./ScoreData/appear.csv");
+
 		note.notenum = 0;
 		note.IDnum = 0;
+		note.appeared = 0;
 		//開かなかったらエラー
-		if (!ifs_noteJust || !ifs_type)
+		if (!ifs_noteJust || !ifs_type || !ifs_appaer)
 		{
 			return false;
 		}
@@ -56,6 +58,16 @@ namespace Note {
 				break;
 			}
 		}
+		while (getline(ifs_appaer, s_appear, '\n'))
+		{
+			//文字列をint型に変換
+			note.note_appear[s] = stoi(s_appear);
+			++s;
+			if (s > num)
+			{
+				break;
+			}
+		}
 		return true;
 	}
 
@@ -65,7 +77,6 @@ namespace Note {
 		int cheak = LoadDivGraph("./Graph/carrot.png", 4, 4, 1, 100, 100, note.picHandle);
 		note.pos.x = SCREEN_WIDIH + 50;
 		note.pos.y = SCREEN_HEIGHT / 2;
-		note.Cnt = 0;
 		note.animeCnt = 0;
 		note.time = 0;
 		note.type = one;
@@ -98,28 +109,28 @@ namespace Note {
 		
 		note.current = GetSoundCurrentTime(sound.BGM);
 		//出現
-		/*if (note.current >= appear_Time)
+		if (note.current >= note.note_appear[note.appeared])
 		{
 			sound.PlaySE(appear);
-			++note.notenum;
 			
-		}*/
+			
+			++note.appeared;
+		}
 		//判定
 		if (note.current >= note.just_Note[note.IDnum])
 		{
 			sound.PlaySE(carrot);
+			++note.notenum;
 			++note.IDnum;
+			
 
 		}
 		
 
 		//BezierCurve2(&note, note.start, note.dir, note.end);
 
-		
-
-
 	}
-
+	
 	void Draw()
 	{
 
@@ -136,8 +147,8 @@ namespace Note {
 		auto sound = GetSound();
 		
 		DrawFormatString(0, 80, GetColor(0, 0, 0), "(サウンドクラス内)現在の再生位置%d", GetSoundCurrentTime(sound.BGM));
-		DrawFormatString(0, 40, GetColor(0, 0, 0), "出現音符数:%d", note.notenum);
-		DrawFormatString(0, 20, GetColor(0, 0, 0), "判定済みの音符:%d", note.IDnum);
+		DrawFormatString(0, 40, GetColor(0, 0, 0), "出現音符数:%d", note.appeared);
+		DrawFormatString(0, 20, GetColor(0, 0, 0), "判定済みの音符:%d", note.notenum);
 		
 	}
 

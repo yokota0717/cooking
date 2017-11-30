@@ -25,7 +25,8 @@ namespace Note {
 		int			 ID[1000];			//音符の画像とSEのID
 		int			 note_appear[1000];	//音符の出現時間(SE鳴らしたいだけ)
 		int			 current;
-		int			 notenum;
+		int			 notenum;		//判定音符数
+		int			 appeared;		//出現音符数
 		int			 IDnum;			//画像とSEのデータのカウンタ
 		float		 speed,
 					  time;  //ベジエ曲線使うときに使ってね☆
@@ -33,7 +34,6 @@ namespace Note {
 					 start,  //出現地点
 					   dir,  //ベジエ曲線の方向点
 					   end;  //ベジエ曲線の終点、大抵は当たり判定領域
-		double		   Cnt;	//フレームカウント
 		int		  animeCnt,	//アニメカウント	
 			  picHandle[4];	//画像
 	
