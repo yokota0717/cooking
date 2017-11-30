@@ -40,16 +40,17 @@ struct Move		//音符の動き（移動とアニメーション）
 };
 struct Data		//音符の判定などの情報
 {
-	int	   judge[100],		//判定時間
-		      ID[100],		//画像とSEの情報
-		  appear[100],		//出現時間
-		      current,		//曲の再生場所
-		      //添え字
-		        j_cnt,		//判定数
-	           ID_cnt,		//次のIDに進める
-	            a_cnt,		//出現数
-		        score;		//得点
-		Hit       hit;		//判定用
+	int	   judge[100];		//判定時間
+	int	      ID[100];		//画像とSEの情報
+	int	  appear[100];		//出現時間
+	int	      current;		//曲の再生場所
+	//添え字
+	int			j_cnt;		//判定数
+	int        ID_cnt;		//次のIDに進める
+	int         a_cnt;		//出現数
+	
+	int	        score;		//得点
+	Hit	          hit;		//判定用
 		
 };
 class Note

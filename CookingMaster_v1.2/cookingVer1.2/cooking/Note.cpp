@@ -3,7 +3,7 @@ static const int
 SCREEN_WIDIH = 960,
 SCREEN_HEIGHT = 540;
 
-static constexpr int Input_Reception_MAX = 50;
+
 
 
 bool Note::LoadScore()
@@ -12,7 +12,7 @@ bool Note::LoadScore()
 	//譜面読み込み
 	ifstream ifs_noteJust("./ScoreData/Scoredata.csv");		//音符のジャストの判定タイミング
 	ifstream ifs_type("./ScoreData/type.csv");				//音符の画像とSEのデータ
-	ifstream ifs_appaer("./ScoreData/appear.csv");
+	ifstream ifs_appaer("./ScoreData/appear.csv");			//音符の出現タイミング
 
 
 	
@@ -67,6 +67,7 @@ bool Note::LoadScore()
 //バッド判定
 bool Note_Check_Bad(int c, int j)
 {
+	static constexpr int Input_Reception_MAX = 50;
 	if (c >= j - Input_Reception_MAX &&
 		c >= j + Input_Reception_MAX)
 	{
@@ -118,6 +119,7 @@ bool Note::Initialize()
 	move.dir.x = fabs(move.start.x - move.end.x) / 2 + move.end.x;
 	move.dir.y = 100;
 
+	data.score = 0;
 	data.a_cnt = 0;
 	data.ID_cnt = 0;
 	data.j_cnt = 0;
@@ -169,13 +171,14 @@ void Note::Update()
 		{
 			data.hit = miss;
 		}
-	
-			break;
+		break;
+
 	case hit:
 		++data.j_cnt;
 		++data.ID_cnt;
 		data.hit = Normal;
 		break;
+
 	case miss:
 		++data.j_cnt;
 		++data.ID_cnt;
@@ -206,8 +209,8 @@ void Note::Draw()
 
 
 	//デバッグ用処理、リリース時には消す
-	DrawFormatString(0, 0, GetColor(0, 0, 0), "得点（仮）:%d", data.score);
-	DrawFormatString(0, 80, GetColor(0, 0, 0), "(サウンドクラス内)現在の再生位置%d", GetSoundCurrentTime(sound.BGM));
+	DrawFormatString(0, 0, GetColor(255, 0, 0), "得点（仮）:%d", data.score);
+	DrawFormatString(0, 80, GetColor(0, 0, 0), "現在の再生位置%d", GetSoundCurrentTime(sound.BGM));
 	DrawFormatString(0, 60, GetColor(0, 0, 0), "音符ID:%d", data.ID[data.ID_cnt]);
 	DrawFormatString(0, 40, GetColor(0, 0, 0), "出現音符数:%d", data.a_cnt);
 	DrawFormatString(0, 20, GetColor(0, 0, 0), "判定済みの音符:%d", data.j_cnt);
