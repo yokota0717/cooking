@@ -12,9 +12,9 @@ bool File::LoadScore()
 {
 
 	//譜面読み込み
-	ifstream ifs_noteJust("./ScoreData/Scoredata.csv");		//音符のジャストの判定タイミング
+	ifstream ifs_noteJust("./ScoreData/Scoredata1.csv");		//音符のジャストの判定タイミング(※ファイルに書く時間は小数点以下まで書くこと)
 	ifstream ifs_type("./ScoreData/type.csv");				//音符の画像とSEのデータ
-	ifstream ifs_appaer("./ScoreData/test.csv");			//音符の出現タイミング　→　左右の方向のデータに変更
+	ifstream ifs_appaer("./ScoreData/dir.csv");			    //左右の方向のデータ
 
 
 	
@@ -106,6 +106,7 @@ void Note::SetAppearTime(Note& note) {
 	case N_rest:
 		note.data.appear = note.data.judge - halfNote;
 		break;
+
 	}
 }
 
@@ -146,7 +147,7 @@ void Note::SetSpeed(Note& note) {
 //バッド判定
 bool Note_Check_Bad(int c, int j)
 {
-	static constexpr int Input_Reception_MAX = 50;
+	static constexpr int Input_Reception_MAX = 55;
 	if (c >= j - Input_Reception_MAX &&
 		c >= j + Input_Reception_MAX)
 	{
@@ -157,7 +158,7 @@ bool Note_Check_Bad(int c, int j)
 //グッド判定
 bool Note_Check_Good(int c, int j)
 {
-	static constexpr int GOOD = 45;
+	static constexpr int GOOD = 50;
 	
 	if (c >= j - GOOD &&
 		c <= j + GOOD &&
@@ -180,14 +181,30 @@ bool Note_Check_Cool(int c, int j)
 	}
 	return false;
 }
+//オート
+bool Auto(int c, int j)
+{
+	if (c >= j-12 )
+	{
+		return true;
+	}
+	return false;
+}
 bool Note::Initialize()
 {
-	int check = LoadDivGraph("./Graph/carrot.png", 4, 4, 1, 100, 100, move.picHandle);
+	int check[6];
+	check[0] = LoadDivGraph("./Graph/carrot.png", 4, 4, 1, 100, 100, move.pic_carrot);
+	check[1] = LoadDivGraph("./Graph/onion.png", 4, 4, 1, 100, 100, move.pic_onion);
+	check[2] = LoadDivGraph("./Graph/cabbage.png", 4, 4, 1, 100, 100, move.pic_cabbage);
+	check[3] = LoadDivGraph("./Graph/potato.png", 4, 4, 1, 100, 100, move.pic_potato);
+	check[4] = LoadDivGraph("./Graph/brory.png", 4, 4, 1, 100, 100, move.pic_broccoli);
+	check[5] = LoadDivGraph("./Graph/tomato.png", 4, 4, 1, 100, 100, move.pic_tomato);
+
 	move.animeCnt = 0;
 	move.state = off;
 	bez.bez = move.start;
 	appearSEplayed = false;
-
+	
 	//move.pos.x = SCREEN_WIDIH + 50;
 	//move.pos.y = SCREEN_HEIGHT / 2;
 	//move.note_type = N_one;
@@ -201,11 +218,14 @@ bool Note::Initialize()
 
 	data.score = 0;
 	data.hit = Normal;
-
-	if (check == -1)
+	for (int i = 0; i < 6; ++i)
 	{
-		return false;
+		if (check[i] == -1)
+		{
+			return false;
+		}
 	}
+	
 
 	return true;
 
@@ -243,6 +263,15 @@ void Note::Update()
 		switch (data.hit)
 		{
 		case Normal:
+			//オートモード(デバッグ用、リリース時には消す)
+			if (Auto(data.current, data.judge) && data.hit == Normal)
+			{
+				sound.PlaySE(data.ID);
+				data.score += 10;
+				data.hit = hit;
+				move.state = cut;
+			}
+			//
 			if (Note_Check_Cool(data.current, data.judge) && data.hit == Normal)
 			{
 				sound.PlaySE(data.ID);
@@ -295,17 +324,62 @@ void Note::Draw()
 
 	if (move.state == come)	//死ぬ前の音符
 	{
-		DrawRotaGraph(int(move.pos.x), int(move.pos.y), 1.0, 0.0, move.picHandle[0], true);
+		switch (data.ID)
+		{
+		case carrot:
+			DrawRotaGraph(int(move.pos.x), int(move.pos.y), 1.0, 0.0, move.pic_carrot[0], true);
+			break;
+		case onion:
+			DrawRotaGraph(int(move.pos.x), int(move.pos.y), 1.0, 0.0, move.pic_onion[0], true);
+			break;
+		case tomato:
+			DrawRotaGraph(int(move.pos.x), int(move.pos.y), 1.0, 0.0, move.pic_tomato[0], true);
+			break;
+		case cabbage:
+			DrawRotaGraph(int(move.pos.x), int(move.pos.y), 1.0, 0.0, move.pic_cabbage[0], true);
+			break;
+		}
+		
 	}
 	if (move.state == cut)	//音符が死んだらアニメーション
 	{
 		int animTable[] = { 0,1,2,3 };
-		if ((move.animeCnt / 3) <= 3) {
-			DrawRotaGraph(int(move.pos.x), int(move.pos.y), 1.0, 0.0, move.picHandle[animTable[move.animeCnt / 3]], true);
+		switch (data.ID)
+		{
+		case carrot:
+			if ((move.animeCnt / 3) <= 3) {
+				DrawRotaGraph(int(move.pos.x), int(move.pos.y), 1.0, 0.0, move.pic_carrot[animTable[move.animeCnt / 3]], true);
+			}
+			else {
+				move.state = off;
+			}
+			break;
+		case onion:
+			if ((move.animeCnt / 3) <= 3) {
+				DrawRotaGraph(int(move.pos.x), int(move.pos.y), 1.0, 0.0, move.pic_onion[animTable[move.animeCnt / 3]], true);
+			}
+			else {
+				move.state = off;
+			}
+			break;
+		case tomato:
+			if ((move.animeCnt / 3) <= 3) {
+				DrawRotaGraph(int(move.pos.x), int(move.pos.y), 1.0, 0.0, move.pic_tomato[animTable[move.animeCnt / 3]], true);
+			}
+			else {
+				move.state = off;
+			}
+			break;
+		case cabbage:
+			if ((move.animeCnt / 3) <= 3) {
+				DrawRotaGraph(int(move.pos.x), int(move.pos.y), 1.0, 0.0, move.pic_cabbage[animTable[move.animeCnt / 3]], true);
+			}
+			else {
+				move.state = off;
+			}
+			break;
 		}
-		else {
-			move.state = off;
-		}
+		
 	}
 
 	Sound GetSound();
@@ -314,7 +388,7 @@ void Note::Draw()
 
 	//デバッグ用処理、リリース時には消す
 	DrawFormatString(0, 0, GetColor(255, 0, 0), "得点（仮）:%d", data.score);
-	//DrawFormatString(0, 80, GetColor(0, 0, 0), "現在の再生位置%d", GetSoundCurrentTime(sound.BGM));
+	DrawFormatString(0, 80, GetColor(0, 0, 0), "現在の再生位置%d", GetSoundCurrentTime(sound.BGM));
 	//DrawFormatString(0, 60, GetColor(0, 0, 0), "音符ID:%d", data.ID[data.ID_cnt]);
 	//DrawFormatString(0, 40, GetColor(0, 0, 0), "出現音符数:%d", data.a_cnt);
 	//DrawFormatString(0, 20, GetColor(0, 0, 0), "判定済みの音符:%d", data.j_cnt);
@@ -325,6 +399,6 @@ void Note::Fin()
 {
 	for (int i = 0; i < 4; ++i)
 	{
-		DeleteGraph(move.picHandle[i]);
+		DeleteGraph(move.pic_carrot[i]);
 	}
 }

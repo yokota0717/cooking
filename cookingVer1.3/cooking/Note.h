@@ -72,9 +72,15 @@ struct Move		//音符の動き（移動とアニメーション）
 	N_Type note_type;	//二分、四分
 	float      speed;	//移動スピード、二分か四分かで決まる
 	int	    animeCnt;	//アニメーション用カウンタ
-	int picHandle[4];	//画像ハンドル
+	int pic_carrot[4],	//画像ハンドル
+	   pic_cabbage[4],
+		pic_potato[4],
+		pic_tomato[4],
+	  pic_broccoli[4],
+		 pic_onion[4];
 
-	
+
+
 };
 struct Data		//音符の判定などの情報
 {
@@ -131,5 +137,5 @@ public:
 bool Note_Check_Good(int c, int j);
 bool Note_Check_Cool(int c, int j);
 bool Note_Check_Bad(int c, int j);
-
+bool Auto(int c, int j);
 

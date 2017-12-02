@@ -14,24 +14,28 @@ Sound GetSound()
 
 bool Game::Initialize()
 {
-	//note[]のInitialze()の成否チェックは別に行う
-	bool noteInitCheck[100] = {};
-	for (int i = 0; i < 100; ++i) { 
-		noteInitCheck[i] = note[i].Initialize();
-		if (!noteInitCheck[i]) return false;
-	}
 	//初期化ミスチェック
 	if (
-		!Player::Initialize()||
-		!sound.Initialize()  ||
-		!file.LoadScore()    ||
+		!Player::Initialize() ||
+		!sound.Initialize() ||
+		!file.LoadScore() ||
 		!Metronome::Initialize())
 	{
 		return false;
 	}
-	for (int i = 0; i < 100; ++i) {
+	for (int i = 0; i < 100; ++i)
+	{
 		note[i].SetScore(i, note[i], file);
 	}
+	//note[]のInitialze()の成否チェックは別に行う
+	bool noteInitCheck[100] = {};
+	for (int i = 0; i < 100; ++i) 
+	{ 
+		noteInitCheck[i] = note[i].Initialize();
+		if (!noteInitCheck[i]) return false;
+	}
+	
+	
 	sound.PlayBGM();
 	
 	return true;		
@@ -40,7 +44,8 @@ void Game::Update()
 {
 	
 	Metronome::Update();
-	for (int i = 0; i < 100; ++i) {
+	for (int i = 0; i < 100; ++i)
+	{
 		note[i].Update();
 	}
 	Player::Update();
@@ -55,7 +60,8 @@ void Game::Draw()
 {
 	Metronome::Draw();
 	
-	for (int i = 0; i < 100; ++i) {
+	for (int i = 0; i < 100; ++i)
+	{
 		note[i].Draw();
 	}
 	Player::Draw();
@@ -66,7 +72,8 @@ void Game::Finalize()
 	Metronome::Fin();
 	
 	sound.Fin();
-	for (int i = 0; i < 100; ++i) {
+	for (int i = 0; i < 100; ++i) 
+	{
 		note[i].Fin();
 	}
 	Player::Fin();

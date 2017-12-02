@@ -5,7 +5,12 @@ bool Sound::Initialize()
 	
 	SE[appear] = LoadSoundMem("./Sound/出現.ogg");
 	SE[carrot]  = LoadSoundMem("./Sound/ニンジン.ogg");
+	SE[onion] = LoadSoundMem("./Sound/タマネギ.ogg");
+	SE[broccoli] = LoadSoundMem("./Sound/キャベツ.ogg");
 	SE[cabbage] = LoadSoundMem("./Sound/キャベツ.ogg");
+	SE[tomato] = LoadSoundMem("./Sound/トマト.ogg");
+	SE[potato] = LoadSoundMem("./Sound/キャベツ.ogg");
+	SE[mouse] = LoadSoundMem("./Sound/キャベツ.ogg");
 	SE[grill]   = LoadSoundMem("./Sound/肉を焼く.ogg");
 	BGM = LoadSoundMem("./Sound/未完成.wav");
 
@@ -25,7 +30,7 @@ int Sound::PlayBGM()
 {
 	if (flag == true)
 	{
-		ChangeVolumeSoundMem(255 * 80 / 100, BGM);
+		ChangeVolumeSoundMem(255 * 90 / 100, BGM);
 		PlaySoundMem(BGM, DX_PLAYTYPE_LOOP);
 		flag = false;
 	}
