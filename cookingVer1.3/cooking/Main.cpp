@@ -1,6 +1,6 @@
 #include "Usingheaders.h"
 
-static const int
+extern const int
 SCREEN_WIDIH = 960,
 SCREEN_HEIGHT = 540;
 

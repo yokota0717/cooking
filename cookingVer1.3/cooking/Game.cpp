@@ -4,9 +4,12 @@ Fps fps;		//デバッグ用にFPSを表示
 Sound sound;
 Note note[100];
 File file;
-static const int
-SCREEN_WIDIH = 960,
-SCREEN_HEIGHT = 540;
+extern const int
+SCREEN_WIDIH,
+SCREEN_HEIGHT;
+
+extern int score = 0;
+
 Sound GetSound()
 {
 	return sound;
@@ -64,6 +67,8 @@ void Game::Draw()
 	{
 		note[i].Draw();
 	}
+	//あとで消す
+	DrawFormatString(0, 0, GetColor(255, 0, 0),"得点：%d", score);
 	Player::Draw();
 	fps.Draw();
 }

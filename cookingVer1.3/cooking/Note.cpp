@@ -1,11 +1,11 @@
 #include "Usingheaders.h"
 extern const int
-SCREEN_WIDIH = 960,
-SCREEN_HEIGHT = 540,
+SCREEN_WIDIH,
+SCREEN_HEIGHT,
 quarterNote = 461,		//四分音符の長さ(ms)
 halfNote = 923;			//二分音符の長さ(ms)
 
-
+extern int score;
 
 
 bool File::LoadScore()
@@ -147,7 +147,7 @@ void Note::SetSpeed(Note& note) {
 //バッド判定
 bool Note_Check_Bad(int c, int j)
 {
-	static constexpr int Input_Reception_MAX = 55;
+	static constexpr int Input_Reception_MAX = 60;
 	if (c >= j - Input_Reception_MAX &&
 		c >= j + Input_Reception_MAX)
 	{
@@ -158,7 +158,7 @@ bool Note_Check_Bad(int c, int j)
 //グッド判定
 bool Note_Check_Good(int c, int j)
 {
-	static constexpr int GOOD = 50;
+	static constexpr int GOOD = 55;
 	
 	if (c >= j - GOOD &&
 		c <= j + GOOD &&
@@ -171,7 +171,7 @@ bool Note_Check_Good(int c, int j)
 //クール判定
 bool Note_Check_Cool(int c, int j)
 {
-	static constexpr int COOL = 8;
+	static constexpr int COOL = 10;
 
 	if (c >= j - COOL &&
 		c <= j + COOL &&
@@ -204,7 +204,7 @@ bool Note::Initialize()
 	move.state = off;
 	bez.bez = move.start;
 	appearSEplayed = false;
-	
+	score = 0;
 	//move.pos.x = SCREEN_WIDIH + 50;
 	//move.pos.y = SCREEN_HEIGHT / 2;
 	//move.note_type = N_one;
@@ -216,7 +216,7 @@ bool Note::Initialize()
 	//move.dir.x = fabs(move.start.x - move.end.x) / 2 + move.end.x;
 	//move.dir.y = 100;
 
-	data.score = 0;
+	
 	data.hit = Normal;
 	for (int i = 0; i < 6; ++i)
 	{
@@ -264,18 +264,18 @@ void Note::Update()
 		{
 		case Normal:
 			//オートモード(デバッグ用、リリース時には消す)
-			if (Auto(data.current, data.judge) && data.hit == Normal)
+		/*	if (Auto(data.current, data.judge) && data.hit == Normal)
 			{
 				sound.PlaySE(data.ID);
-				data.score += 10;
+				
 				data.hit = hit;
 				move.state = cut;
-			}
+			}*/
 			//
 			if (Note_Check_Cool(data.current, data.judge) && data.hit == Normal)
 			{
 				sound.PlaySE(data.ID);
-				data.score += 10;
+				score += 10;
 				data.hit = hit;
 				move.state = cut;
 			}
@@ -283,7 +283,7 @@ void Note::Update()
 			{
 				sound.PlaySE(data.ID);
 
-				data.score += 2;
+				score += 2;
 				data.hit = hit;
 				move.state = cut;
 			}
@@ -387,7 +387,6 @@ void Note::Draw()
 
 
 	//デバッグ用処理、リリース時には消す
-	DrawFormatString(0, 0, GetColor(255, 0, 0), "得点（仮）:%d", data.score);
 	DrawFormatString(0, 80, GetColor(0, 0, 0), "現在の再生位置%d", GetSoundCurrentTime(sound.BGM));
 	//DrawFormatString(0, 60, GetColor(0, 0, 0), "音符ID:%d", data.ID[data.ID_cnt]);
 	//DrawFormatString(0, 40, GetColor(0, 0, 0), "出現音符数:%d", data.a_cnt);
