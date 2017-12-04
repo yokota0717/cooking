@@ -3,6 +3,7 @@
 Fps fps;		//デバッグ用にFPSを表示
 Sound sound;
 Note note[100];
+Player::Cock cock;
 File file;
 extern const int
 SCREEN_WIDIH,
@@ -62,14 +63,14 @@ void Game::Update()
 void Game::Draw()
 {
 	Metronome::Draw();
-	
+	Player::Draw();
 	for (int i = 0; i < 100; ++i)
 	{
 		note[i].Draw();
 	}
 	//あとで消す
 	DrawFormatString(0, 0, GetColor(255, 0, 0),"得点：%d", score);
-	Player::Draw();
+	
 	fps.Draw();
 }
 void Game::Finalize()

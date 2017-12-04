@@ -199,7 +199,6 @@ bool Note::Initialize()
 	check[3] = LoadDivGraph("./Graph/potato.png", 4, 4, 1, 100, 100, move.pic_potato);
 	check[4] = LoadDivGraph("./Graph/brory.png", 4, 4, 1, 100, 100, move.pic_broccoli);
 	check[5] = LoadDivGraph("./Graph/tomato.png", 4, 4, 1, 100, 100, move.pic_tomato);
-
 	move.animeCnt = 0;
 	move.state = off;
 	bez.bez = move.start;

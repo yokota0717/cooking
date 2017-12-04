@@ -1,7 +1,7 @@
 #pragma once
 namespace Player
 {
-	const int num = 35;
+	
 	enum State {
 		stand,
 		cut,
@@ -14,7 +14,9 @@ namespace Player
 				        w,
 			            h,
 		 	      animCnt,
-			picHandle[num];
+			picHandle[3];
+		int e_pic;
+		bool          flag;
 		State	    state;
 	};
 
