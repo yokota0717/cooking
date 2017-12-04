@@ -117,7 +117,7 @@ void Note::SetBezierData(Note& note) {
 		note.move.start.y = float(SCREEN_HEIGHT / 2);
 		note.move.end.x = 630.0f / 2.0f;	//Player.cpp　check　の座標をコピペ、画像の位置関係で要変更
 		note.move.end.y = 280.0f;
-		note.move.dir.x = note.move.end.x - note.move.start.x;
+		note.move.dir.x = (note.move.end.x - note.move.start.x)/ 2.0f;
 		//dir.yはN_Typeによって変わる
 		note.move.dir.y = (note.move.note_type == N_one) ? float(SCREEN_HEIGHT / 3) : float(SCREEN_HEIGHT / 5);  //要変更
 		break;
@@ -162,9 +162,10 @@ bool Note_Check_Good(int c, int j)
 	
 	if (c >= j - GOOD &&
 		c <= j + GOOD &&
-		Key(KEY_INPUT_Z) == 1)
+		Key(KEY_INPUT_Z)==1)
 	{
 		return true;
+		
 	}
 	return false;
 }
@@ -264,7 +265,7 @@ void Note::Update()
 		{
 		case Normal:
 			//オートモード(デバッグ用、リリース時には消す)
-		/*	if (Auto(data.current, data.judge) && data.hit == Normal)
+			/*if (Auto(data.current, data.judge) && data.hit == Normal)
 			{
 				sound.PlaySE(data.ID);
 				
@@ -326,24 +327,19 @@ void Note::Draw()
 	{
 		switch (data.ID)
 		{
-		case carrot:
-			DrawRotaGraph(int(move.pos.x), int(move.pos.y), 1.0, 0.0, move.pic_carrot[0], true);
-			break;
-		case onion:
-			DrawRotaGraph(int(move.pos.x), int(move.pos.y), 1.0, 0.0, move.pic_onion[0], true);
-			break;
-		case tomato:
-			DrawRotaGraph(int(move.pos.x), int(move.pos.y), 1.0, 0.0, move.pic_tomato[0], true);
-			break;
-		case cabbage:
-			DrawRotaGraph(int(move.pos.x), int(move.pos.y), 1.0, 0.0, move.pic_cabbage[0], true);
-			break;
+		case carrot:  DrawRotaGraph(int(move.pos.x), int(move.pos.y), 1.0, 0.0, move.pic_carrot[0],   true); break;
+		case onion:   DrawRotaGraph(int(move.pos.x), int(move.pos.y), 1.0, 0.0, move.pic_onion[0],    true); break;
+		case tomato:  DrawRotaGraph(int(move.pos.x), int(move.pos.y), 1.0, 0.0, move.pic_tomato[0],   true); break;
+		case cabbage: DrawRotaGraph(int(move.pos.x), int(move.pos.y), 1.0, 0.0, move.pic_cabbage[0],  true); break;
+		case potato:  DrawRotaGraph(int(move.pos.x), int(move.pos.y), 1.0, 0.0, move.pic_potato[0],   true); break;
+		case broccoli:DrawRotaGraph(int(move.pos.x), int(move.pos.y), 1.0, 0.0, move.pic_broccoli[0], true); break;
 		}
 		
 	}
 	if (move.state == cut)	//音符が死んだらアニメーション
 	{
 		int animTable[] = { 0,1,2,3 };
+
 		switch (data.ID)
 		{
 		case carrot:
@@ -378,6 +374,22 @@ void Note::Draw()
 				move.state = off;
 			}
 			break;
+		case potato:
+		if ((move.animeCnt / 3) <= 3) {
+			DrawRotaGraph(int(move.pos.x), int(move.pos.y), 1.0, 0.0, move.pic_potato[animTable[move.animeCnt / 3]], true);
+		}
+		else {
+			move.state = off;
+		}
+		break;
+		case broccoli:
+		if ((move.animeCnt / 3) <= 3) {
+			DrawRotaGraph(int(move.pos.x), int(move.pos.y), 1.0, 0.0, move.pic_broccoli[animTable[move.animeCnt / 3]], true);
+		}
+		else {
+			move.state = off;
+		}
+		break;
 		}
 		
 	}

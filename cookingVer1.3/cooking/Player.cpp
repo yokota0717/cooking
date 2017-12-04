@@ -27,7 +27,7 @@ namespace Player {
 
 	void Update()
 	{
-		if (Key(KEY_INPUT_RIGHT) >= 1)
+		/*if (Key(KEY_INPUT_RIGHT) >= 1)
 		{
 			cock.x += 5;
 		}
@@ -35,10 +35,10 @@ namespace Player {
 		{
 			cock.x -= 5;
 		}
-		if (Key(KEY_INPUT_A) == 1)
+		if (Key(KEY_INPUT_Z) == 1)
 		{
 			cock.state = cut;
-		}
+		}*/
 	}
 
 	void Draw()
