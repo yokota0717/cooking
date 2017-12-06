@@ -13,13 +13,23 @@ namespace Player {
 	int GcutR[3];
 	bool Initialize()
 	{
+		staff.BPM = 130;									//曲BPM
+		staff.second = 60;								//1秒
+		staff.singlfps = 1000 / 60;						//1フレーム分の時間[ms]
+
+		staff.beat = 4;									//拍子
+		staff.sibu = 1000 * (staff.second / staff.BPM);		//4分音符1個分の終了点
+
+		staff.cnt = 1;
+		staff.flag = true;
+
 		cock.x = SCREEN_WIDIH/2;
 		cock.y = SCREEN_WIDIH/4 + 90;
 		cock.w = 512;
 		cock.h = 512;
 		check.x = 630;
 		check.y = 280;
-		cock.state = stand;
+		cock.state = down;
 		cock.animCnt = 0;
 
 		cock.picHandle[0] = LoadGraph("./Graph/512.png");
@@ -69,29 +79,39 @@ namespace Player {
 
 	void Draw()
 	{
-		if (cock.state == stand) {
-			if (cock.flag == false) {
-				DrawRotaGraph(int(cock.x), int(cock.y), 0.6, 0.0, Gstand[0], true);
-			}
+		int anime[14] = { 2,2,2,1,1,0,0,0,0,0,1,1,2,2 };
+		if (cock.state == down && cock.flag == true) {
 			if (cock.flag == true) {
-				int anime[num] = { 2,2,1,1,0,1,2 };
-				DrawRotaGraph(int(cock.x), int(cock.y), 0.6, 0.0, Gstand[anime[cock.animCnt]], true);
-				cock.animCnt++;
+				++cock.animCnt;
+				anime[cock.animCnt];
 			}
-			if (cock.animCnt > num-1) {
+			if (cock.animCnt > 6) {
+				cock.state = up;
 				cock.flag = false;
-				cock.animCnt = 0;
 			}
 		}
-		if (cock.state == cut) {
-			int anime[num] = { 0,0,1,2,2,2 ,2};
-			DrawRotaGraph(int(cock.x), int(cock.y), 0.6, 0.0,GcutR[anime[cock.animCnt]], true);
-			cock.animCnt++;
-			if (cock.animCnt <= 3) {
-				DrawRotaGraph(check.x-20, check.y +80, 1.0, 0.0, cock.e_pic, true);
+		if (cock.state == up && cock.flag == true) {
+			if (cock.flag == true) {
+				++cock.animCnt;
+				if (cock.animCnt > 13) {
+					cock.animCnt = 0;
+					cock.state = down;
+					cock.flag = false;
+				}
 			}
-			if (cock.animCnt > num-1) {
-				cock.state = stand;
+		}
+
+		DrawRotaGraph(int(cock.x), int(cock.y), 0.6, 0.0, Gstand[anime[cock.animCnt]], true);
+
+		if (cock.state == cut) {
+			int anime[num] = { 0,0,1,2,2,2,2 };
+			DrawRotaGraph(int(cock.x), int(cock.y), 0.6, 0.0, GcutR[anime[cock.animCnt / 2]], true);
+			cock.animCnt++;
+			if (cock.animCnt <= 3) { //エフェクト
+				DrawRotaGraph(check.x - 20, check.y + 80, 1.0, 0.0, cock.e_pic, true);
+			}
+			if (cock.animCnt > num * 2 - 1) {
+				cock.state = down;
 				cock.animCnt = 0;
 			}
 		}

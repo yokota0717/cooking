@@ -177,6 +177,7 @@ bool Note_Check_Cool(int c, int j)
 		c <= j + COOL &&
 		Key(KEY_INPUT_Z) == 1)
 	{
+		
 		return true;
 	}
 	return false;

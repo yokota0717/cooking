@@ -8,15 +8,15 @@ namespace Metronome {
 	
 
 	bool Initialize() {
-		//staff.BPM = 130;									//曲BPM
-		//staff.second = 60;								//1秒
-		//staff.singlfps = 1000 / 60;						//1フレーム分の時間[ms]
+		staff.BPM = 130;									//曲BPM
+		staff.second = 60;								//1秒
+		staff.singlfps = 1000 / 60;						//1フレーム分の時間[ms]
 
-		//staff.beat = 4;									//拍子
-		//staff.sibu = 1000 * (staff.second / staff.BPM);		//4分音符1個分の終了点
+		staff.beat = 4;									//拍子
+		staff.sibu = 1000 * (staff.second / staff.BPM);		//4分音符1個分の終了点
 
-		//staff.cnt = 1;
-		//staff.flag = true;
+		staff.cnt = 1;
+		staff.flag = true;
 
 
 		chef.chefY = 27;
@@ -58,21 +58,21 @@ namespace Metronome {
 	{
 		int ani[7] = { 2,2,1,1,0,1,2 }; //アニメーションにディレイをかけるために要素数を増やしている（実際は5こま）
 		if (chef.anime == true) {
-			chef.aniCnt++;
-			if (chef.aniCnt < 5) {
-				chef.chefY += 2;
+			if (chef.aniCnt < 9) {
+				chef.chefY += 1;
 			}
-			else if (chef.aniCnt < 7) {
-				chef.chefY -= 4;
+			else if (chef.aniCnt < 13) {
+				chef.chefY -= 2;
 			}
 			else {
 				chef.anime = false;
 				chef.aniCnt = 0;
 			}
+			chef.aniCnt++;
 		}
 		
 		DrawGraph(0, 0, chef.bg1, true);
-		DrawGraph(40, chef.chefY, chef.chef[ani[chef.aniCnt]], true);
+		DrawGraph(40, chef.chefY, chef.chef[ani[chef.aniCnt/2]], true);
 		DrawGraph(0, 263, chef.bg2, true);
 
 	}

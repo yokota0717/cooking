@@ -3,7 +3,8 @@ namespace Player
 {
 	
 	enum State {
-		stand,
+		up,
+		down,
 		cut,
 	};
 
