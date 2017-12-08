@@ -4,8 +4,11 @@
 namespace Metronome {
 	StaffAnimation staff;
 	ChefAnimation chef;
+	SubAnimation sub;
 
-	
+	int stf;
+	int stfX;
+
 
 	bool Initialize() {
 		staff.BPM = 130;									//‹ÈBPM
@@ -17,7 +20,12 @@ namespace Metronome {
 
 		staff.cnt = 1;
 		staff.flag = true;
+		stf = LoadGraph("./Graph/staff.png");
+		stfX = 0;
 
+		sub.flag = false;
+		sub.x = -137;
+		sub.y = 77;
 
 		chef.chefY = 27;
 		chef.anime = true;
@@ -52,6 +60,17 @@ namespace Metronome {
 			staff.sibu *= staff.cnt;
 			staff.flag = true;
 		}
+
+		if (sub.flag == true) 
+		{
+			sub.x += 2;
+			if (sub.x >= 500)
+			{
+				sub.flag = false;
+				sub.x = -137;
+			}
+		}
+
 	}
 
 	void Draw()
@@ -72,6 +91,7 @@ namespace Metronome {
 		}
 		
 		DrawGraph(0, 0, chef.bg1, true);
+		DrawGraph(sub.x, sub.y, stf, TRUE);
 		DrawGraph(40, chef.chefY, chef.chef[ani[chef.aniCnt/2]], true);
 		DrawGraph(0, 263, chef.bg2, true);
 
@@ -83,6 +103,11 @@ namespace Metronome {
 		for (int i = 0; i < 3; i++) {
 			DeleteGraph(chef.chef[i]);
 		}
+	}
+
+	void bgAni()
+	{
+		sub.flag = true;
 	}
 
 }

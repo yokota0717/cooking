@@ -164,6 +164,7 @@ bool Note_Check_Good(int c, int j)
 		c <= j + GOOD &&
 		Key(KEY_INPUT_Z) == 1)
 	{
+		Player::Effect_On();
 		return true;
 	}
 	return false;
@@ -177,6 +178,7 @@ bool Note_Check_Cool(int c, int j)
 		c <= j + COOL &&
 		Key(KEY_INPUT_Z) == 1)
 	{
+		Player::Effect_On();
 		
 		return true;
 	}
@@ -315,6 +317,10 @@ void Note::Update()
 
 		if (move.pos.y >= 500) {
 			move.state = off;
+		}
+
+		if (score >= 2 ) {
+			Metronome::bgAni();
 		}
 
 }

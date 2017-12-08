@@ -7,10 +7,14 @@ namespace Player {
 	const int num = 7;
 	Cock cock;
 	Cock check;	//あたり判定の可視化に用いる、不要になったら削除
+	Effect effect;
 	Metronome::StaffAnimation staff;
 
 	int Gstand[3];
 	int GcutR[3];
+
+	void Effect_draw();
+
 	bool Initialize()
 	{
 		staff.BPM = 130;									//曲BPM
@@ -31,6 +35,9 @@ namespace Player {
 		check.y = 280;
 		cock.state = down;
 		cock.animCnt = 0;
+
+		effect.flag = false;
+		effect.Cnt = 0;
 
 		cock.picHandle[0] = LoadGraph("./Graph/512.png");
 		LoadDivGraph("./Graph/stand.png", 3, 3, 1, 277, 502, Gstand);
@@ -81,17 +88,13 @@ namespace Player {
 	{
 		int anime[14] = { 2,2,2,1,1,0,0,0,0,0,1,1,2,2 };
 		if (cock.state == down && cock.flag == true) {
-			if (cock.flag == true) {
-				++cock.animCnt;
-				anime[cock.animCnt];
-			}
-			if (cock.animCnt > 6) {
+			++cock.animCnt;
+			if (cock.animCnt > 7) {
 				cock.state = up;
 				cock.flag = false;
 			}
 		}
 		if (cock.state == up && cock.flag == true) {
-			if (cock.flag == true) {
 				++cock.animCnt;
 				if (cock.animCnt > 13) {
 					cock.animCnt = 0;
@@ -99,16 +102,17 @@ namespace Player {
 					cock.flag = false;
 				}
 			}
+		if (cock.state == up || cock.state == down)
+		{
+			DrawRotaGraph(int(cock.x), int(cock.y), 0.6, 0.0, Gstand[anime[cock.animCnt]], true);
 		}
 
-		DrawRotaGraph(int(cock.x), int(cock.y), 0.6, 0.0, Gstand[anime[cock.animCnt]], true);
-
 		if (cock.state == cut) {
-			int anime[num] = { 0,0,1,2,2,2,2 };
+			int anime[num] = { 0,0,1,1,2,2,2 };
 			DrawRotaGraph(int(cock.x), int(cock.y), 0.6, 0.0, GcutR[anime[cock.animCnt / 2]], true);
 			cock.animCnt++;
-			if (cock.animCnt <= 3) { //エフェクト
-				DrawRotaGraph(check.x - 20, check.y + 80, 1.0, 0.0, cock.e_pic, true);
+			if (effect.flag == true) { //エフェクト
+				Effect_draw();
 			}
 			if (cock.animCnt > num * 2 - 1) {
 				cock.state = down;
@@ -116,8 +120,6 @@ namespace Player {
 			}
 		}
 
-		
-		//仮のキャラ
 
 		//あたり判定の可視化
 		DrawCircle(check.x+10, check.y +100, 50, GetColor(255, 0, 0), false);			//右 (x+10,y+90)
@@ -132,5 +134,23 @@ namespace Player {
 		{
 			DeleteGraph(cock.picHandle[i]);
 		}
+	}
+
+	void Effect_On()
+	{
+		effect.flag = true;
+	}
+
+	void Effect_draw()
+	{
+		if (effect.Cnt <= 3) {
+			DrawRotaGraph(check.x - 20, check.y + 80, 1.0, 0.0, cock.e_pic, true);
+		}
+		else
+		{
+			effect.flag = false;
+			effect.Cnt = 0;
+		}
+		effect.Cnt++;
 	}
 }

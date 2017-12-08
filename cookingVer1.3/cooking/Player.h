@@ -21,6 +21,12 @@ namespace Player
 		State	    state;
 	};
 
+	struct Effect
+	{
+		bool flag;
+		int Cnt;
+	};
+
 	bool Initialize();
 
 	void Update();
@@ -28,5 +34,7 @@ namespace Player
 	void Draw();
 
 	void Fin();
+
+	void Effect_On();
 
 }

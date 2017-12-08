@@ -22,6 +22,12 @@ namespace Metronome {
 		int aniCnt; //アニメーションが再生するフレイム
 	};
 	
+	struct SubAnimation {
+		bool flag;
+		int x;
+		int y;
+	};
+
 	bool Initialize();
 
 	void Update();
@@ -29,4 +35,6 @@ namespace Metronome {
 	void Draw();
 
 	void Fin();
+
+	void bgAni();
 }
