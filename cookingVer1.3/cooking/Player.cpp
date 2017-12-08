@@ -70,8 +70,7 @@ namespace Player {
 			staff.flag = true;
 		}
 
-		if (Key(KEY_INPUT_RIGHT) >= 1)
-		{
+		if (Key(KEY_INPUT_RIGHT) >= 1)		{
 			cock.x += 5;
 		}
 		if (Key(KEY_INPUT_LEFT) >= 1)
