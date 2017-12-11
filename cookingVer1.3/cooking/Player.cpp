@@ -27,9 +27,8 @@ namespace Player {
 		staff.cnt = 1;
 		staff.flag = true;
 
-		cock.x = SCREEN_WIDIH/2;
-		cock.y = SCREEN_WIDIH/4 + 10;
-		cock.y = SCREEN_WIDIH/4 + 90;
+		cock.x = SCREEN_WIDIH / 2;
+		cock.y = SCREEN_WIDIH / 4 + 90;
 		cock.w = 512;
 		cock.h = 512;
 		check.x = 630;
@@ -41,12 +40,9 @@ namespace Player {
 		effect.Cnt = 0;
 
 		cock.picHandle[0] = LoadGraph("./Graph/512.png");
-		//LoadDivGraph("./Graph/player.png", 2, 2, 1, 100, 225, cock.picHandle);
-		cock.state = stand;
-		cock.animCnt = 0;
 		LoadDivGraph("./Graph/stand.png", 3, 3, 1, 277, 502, Gstand);
 		LoadDivGraph("./Graph/cutR.png", 3, 3, 1, 394, 495, GcutR);
-		cock.e_pic=LoadGraph("./Graph/test_E.png", true);
+		cock.e_pic = LoadGraph("./Graph/test_E.png", true);
 
 		if (cock.picHandle[0] == -1)
 		{
@@ -57,18 +53,6 @@ namespace Player {
 
 	void Update()
 	{
-		/*if (Key(KEY_INPUT_RIGHT) >= 1)
-		{
-			cock.x += 5;
-		}
-		if (Key(KEY_INPUT_LEFT) >= 1)
-		{
-			cock.x -= 5;
-		}
-		if (Key(KEY_INPUT_Z) == 1)
-		{
-			cock.state = cut;
-		}*/
 		Sound GetSound();
 		auto sound = GetSound();
 		staff.current = GetSoundCurrentTime(sound.BGM);
@@ -86,7 +70,8 @@ namespace Player {
 			staff.flag = true;
 		}
 
-		if (Key(KEY_INPUT_RIGHT) >= 1)		{
+		if (Key(KEY_INPUT_RIGHT) >= 1)
+		{
 			cock.x += 5;
 		}
 		if (Key(KEY_INPUT_LEFT) >= 1)
@@ -101,8 +86,6 @@ namespace Player {
 
 	void Draw()
 	{
-		if (cock.state == stand) {
-			DrawRotaGraph(int(cock.x), int(cock.y), 0.6, 0.0, cock.picHandle[0], true);
 		int anime[14] = { 2,2,2,1,1,0,0,0,0,0,1,1,2,2 };
 		if (cock.state == down && cock.flag == true) {
 			++cock.animCnt;
@@ -112,23 +95,19 @@ namespace Player {
 			}
 		}
 		if (cock.state == up && cock.flag == true) {
-				++cock.animCnt;
-				if (cock.animCnt > 13) {
-					cock.animCnt = 0;
-					cock.state = down;
-					cock.flag = false;
-				}
+			++cock.animCnt;
+			if (cock.animCnt > 13) {
+				cock.animCnt = 0;
+				cock.state = down;
+				cock.flag = false;
 			}
+		}
 		if (cock.state == up || cock.state == down)
 		{
 			DrawRotaGraph(int(cock.x), int(cock.y), 0.6, 0.0, Gstand[anime[cock.animCnt]], true);
 		}
 
 		if (cock.state == cut) {
-			DrawRotaGraph(int(cock.x), int(cock.y), 0.6, 0.0, cock.picHandle[1], true);
-			++cock.animCnt;
-			if (cock.animCnt >= 20) {
-				cock.state = stand;
 			int anime[num] = { 0,0,1,1,2,2,2 };
 			DrawRotaGraph(int(cock.x), int(cock.y), 0.6, 0.0, GcutR[anime[cock.animCnt / 2]], true);
 			cock.animCnt++;
@@ -141,15 +120,10 @@ namespace Player {
 			}
 		}
 
-		//仮のキャラ
 
 		//あたり判定の可視化
-		DrawCircle(check.x, check.y, 50, GetColor(255, 0, 0), false);			//右
-		DrawCircle(check.x / 2, check.y, 50, GetColor(255, 0, 0), false);		//左
-		DrawCircle(check.x - 155, check.y - 200, 50, GetColor(255, 0, 0), false);//上
-		DrawCircle(check.x - 155, check.y + 150, 50, GetColor(255, 0, 0), false);//下
-		DrawCircle(check.x+10, check.y +100, 50, GetColor(255, 0, 0), false);			//右 (x+10,y+90)
-		DrawCircle((check.x / 2)+10, check.y + 90, 50, GetColor(255, 0, 0), false);		//左 (x+10,y+90)
+		DrawCircle(check.x + 10, check.y + 100, 50, GetColor(255, 0, 0), false);			//右 (x+10,y+90)
+		DrawCircle((check.x / 2) + 10, check.y + 90, 50, GetColor(255, 0, 0), false);		//左 (x+10,y+90)
 		DrawCircle(check.x - 145, check.y - 110, 50, GetColor(255, 0, 0), false);//上(x+10,y+90)
 		DrawCircle(check.x - 145, check.y + 240, 50, GetColor(255, 0, 0), false);//下(x+10,y+90)
 	}
@@ -179,3 +153,4 @@ namespace Player {
 		}
 		effect.Cnt++;
 	}
+}
