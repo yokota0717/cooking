@@ -42,7 +42,7 @@ namespace Player {
 		//c,c2はエラーチェック用変数。
 		int c = LoadDivGraph("./Graph/stand.png", 3, 3, 1, 277, 502, Gstand);
 		int c2 =LoadDivGraph("./Graph/cutR.png", 3, 3, 1, 394, 495, GcutR);
-		cock.e_pic = LoadGraph("./Graph/test_E.png", true);
+		cock.e_pic = LoadGraph("./Graph/effect.png", true);
 
 		if (c == -1 || c2 == -1)
 		{
