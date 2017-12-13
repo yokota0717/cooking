@@ -39,12 +39,12 @@ namespace Player {
 		effect.flag = false;
 		effect.Cnt = 0;
 
-		cock.picHandle[0] = LoadGraph("./Graph/512.png");
-		LoadDivGraph("./Graph/stand.png", 3, 3, 1, 277, 502, Gstand);
-		LoadDivGraph("./Graph/cutR.png", 3, 3, 1, 394, 495, GcutR);
+		//c,c2はエラーチェック用変数。
+		int c = LoadDivGraph("./Graph/stand.png", 3, 3, 1, 277, 502, Gstand);
+		int c2 =LoadDivGraph("./Graph/cutR.png", 3, 3, 1, 394, 495, GcutR);
 		cock.e_pic = LoadGraph("./Graph/test_E.png", true);
 
-		if (cock.picHandle[0] == -1)
+		if (c == -1 || c2 == -1)
 		{
 			return false;
 		}
