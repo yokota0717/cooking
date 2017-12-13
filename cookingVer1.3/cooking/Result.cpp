@@ -2,10 +2,7 @@
 
 bool Result::Initialize()
 {
-	POS test(0, 0);
-	POS lhs(0, 0);
-	POS rhs(0, 0);
-	test = lhs + rhs;
+	
 	bghandle = LoadGraph("./Graph/ƒŠƒUƒ‹ƒg.png");
 	if (bghandle == -1)
 	{
