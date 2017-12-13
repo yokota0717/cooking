@@ -12,16 +12,17 @@ namespace Player {
 
 	int Gstand[3];
 	int GcutR[3];
+	int GcutL[3];
 
 	void Effect_draw();
 
 	bool Initialize()
 	{
 		staff.BPM = 130;									//曲BPM
-		staff.second = 60;								//1秒
-		staff.singlfps = 1000 / 60;						//1フレーム分の時間[ms]
+		staff.second = 60;									//1秒
+		staff.singlfps = 1000 / 60;							//1フレーム分の時間[ms]
 
-		staff.beat = 4;									//拍子
+		staff.beat = 4;										//拍子
 		staff.sibu = 1000 * (staff.second / staff.BPM);		//4分音符1個分の終了点
 
 		staff.cnt = 1;
@@ -35,6 +36,7 @@ namespace Player {
 		check.y = 280;
 		cock.state = down;
 		cock.animCnt = 0;
+		cock.dir = LEFT;
 
 		effect.flag = false;
 		effect.Cnt = 0;
@@ -42,9 +44,10 @@ namespace Player {
 		//c,c2はエラーチェック用変数。
 		int c = LoadDivGraph("./Graph/stand.png", 3, 3, 1, 277, 502, Gstand);
 		int c2 =LoadDivGraph("./Graph/cutR.png", 3, 3, 1, 394, 495, GcutR);
+		int c3 = LoadDivGraph("./Graph/cutL.png", 3, 3, 1, 388, 517, GcutL);
 		cock.e_pic = LoadGraph("./Graph/effect.png", true);
 
-		if (c == -1 || c2 == -1)
+		if (c == -1 || c2 == -1 || c3 == -1)
 		{
 			return false;
 		}
@@ -86,6 +89,7 @@ namespace Player {
 
 	void Draw()
 	{
+		//★待機状態だけ描く
 		int anime[14] = { 2,2,2,1,1,0,0,0,0,0,1,1,2,2 };
 		if (cock.state == down && cock.flag == true) {
 			++cock.animCnt;
@@ -102,14 +106,30 @@ namespace Player {
 				cock.flag = false;
 			}
 		}
-		if (cock.state == up || cock.state == down)
+		if (cock.state == up || cock.state == down)	
 		{
 			DrawRotaGraph(int(cock.x), int(cock.y), 0.6, 0.0, Gstand[anime[cock.animCnt]], true);
 		}
+		//★
 
-		if (cock.state == cut) {
+
+		//★野菜が切れたら指定した座標に表示
+		if (cock.state == cut && cock.dir == RIGHT) {
 			int anime[num] = { 0,0,1,1,2,2,2 };
 			DrawRotaGraph(int(cock.x), int(cock.y), 0.6, 0.0, GcutR[anime[cock.animCnt / 2]], true);
+			cock.animCnt++;
+			if (effect.flag == true) {
+				Effect_draw();
+			}
+			if (cock.animCnt > num * 2 - 1) {
+				cock.state = down;
+				cock.animCnt = 0;
+			}
+		}
+
+		if (cock.state == cut && cock.dir == LEFT) {
+			int anime[num] = { 0,0,1,1,2,2,2 };
+			DrawRotaGraph(int(cock.x), int(cock.y), 0.6, 0.0, GcutL[anime[cock.animCnt / 2]], true);
 			cock.animCnt++;
 			if (effect.flag == true) { //エフェクト
 				Effect_draw();
@@ -119,7 +139,7 @@ namespace Player {
 				cock.animCnt = 0;
 			}
 		}
-
+		//★
 
 		//あたり判定の可視化
 		DrawCircle(check.x + 10, check.y + 100, 50, GetColor(255, 0, 0), false);			//右 (x+10,y+90)
@@ -141,10 +161,29 @@ namespace Player {
 		effect.flag = true;
 	}
 
+	void CutL_On()		//プレイヤーが左を向く
+	{
+		cock.dir = LEFT;
+	}
+	void CutR_On()		//プレイヤーが右を向く
+	{
+		cock.dir = RIGHT;
+	}
+
+	void Set_Cut() //オートモード用
+	{
+		cock.state = cut;
+	}
+
 	void Effect_draw()
 	{
-		if (effect.Cnt <= 3) {
-			DrawRotaGraph(check.x - 20, check.y + 80, 1.0, 0.0, cock.e_pic, true);
+		if (effect.Cnt <= 5) {			//cut始めてから5フレイム後まで
+			if (cock.dir == RIGHT) {	//右方向のエフェクト
+				DrawRotaGraph(check.x - 20, check.y + 80, 1.0, 0.0, cock.e_pic, true);
+			}
+			if (cock.dir == LEFT) {		 //左方向のエフェクト
+				DrawRotaGraph((check.x / 2) + 10, check.y + 90, 1.0, 0.0, cock.e_pic, true);
+			}
 		}
 		else
 		{

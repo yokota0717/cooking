@@ -57,6 +57,7 @@ bool File::LoadScore()
 		//文字列をint型に変換
 		dir[d] = stoi(s_dir);
 		++d;
+
 		if (d > 100)
 		{
 			break;
@@ -266,14 +267,21 @@ void Note::Update()
 		switch (data.hit)
 		{
 		case Normal:
-			//オートモード(デバッグ用、リリース時には消す)
-			/*if (Auto(data.current, data.judge) && data.hit == Normal)
+			//オートモード(デバッグ用、リリース時には消す) 
+			if (Auto(data.current, data.judge) && data.hit == Normal)
 			{
 				sound.PlaySE(data.ID);
-				
+				Player::Set_Cut();
 				data.hit = hit;
 				move.state = cut;
-			}*/
+				Player::Effect_On();
+				if (data.d == LEFT) {
+					Player::CutL_On();
+				}
+				if (data.d == RIGHT) {
+					Player::CutR_On();
+				}
+			}
 			//
 			if (Note_Check_Cool(data.current, data.judge) && data.hit == Normal)
 			{
@@ -281,6 +289,12 @@ void Note::Update()
 				score += 10;
 				data.hit = hit;
 				move.state = cut;
+				if (data.d == LEFT) {
+					Player::CutL_On();
+				}
+				if (data.d == RIGHT) {
+					Player::CutR_On();
+				}
 			}
 			if (Note_Check_Good(data.current, data.judge) && data.hit == Normal)
 			{
@@ -289,6 +303,12 @@ void Note::Update()
 				score += 2;
 				data.hit = hit;
 				move.state = cut;
+				if (data.d == LEFT) {
+					Player::CutL_On();
+				}
+				if (data.d == RIGHT) {
+					Player::CutR_On();
+				}
 			}
 			//判定時間内に入力がない場合
 			else if (Note_Check_Bad(data.current, data.judge) && data.hit == Normal)

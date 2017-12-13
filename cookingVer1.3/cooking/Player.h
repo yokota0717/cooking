@@ -8,6 +8,14 @@ namespace Player
 		cut,
 	};
 
+	enum Dir {
+		NON, //	‰Šúó‘Ô
+		LEFT,
+		RIGHT,
+		TOP,
+		BOTTOM,
+	};
+
 	struct Cock
 	{
 		int		        x,
@@ -19,6 +27,7 @@ namespace Player
 		int e_pic;
 		bool          flag;
 		State	    state;
+		Dir			   dir;
 	};
 
 	struct Effect
@@ -36,5 +45,9 @@ namespace Player
 	void Fin();
 
 	void Effect_On();
+
+	void  CutL_On();
+	void  CutR_On();
+	void  Set_Cut();
 
 }
