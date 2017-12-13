@@ -3,7 +3,6 @@
 Fps fps;		//デバッグ用にFPSを表示
 Sound sound;
 Note note[100];
-Player::Cock cock;
 File file;
 extern const int
 SCREEN_WIDIH,
@@ -72,6 +71,11 @@ void Game::Draw()
 	DrawFormatString(0, 0, GetColor(255, 0, 0),"得点：%d", score);
 	
 	fps.Draw();
+
+	if (GetSoundCurrentTime(sound.BGM) >= GetSoundTotalTime(sound.BGM) - 100)	//曲が終わったらリザルトへ
+	{
+		SceneManeger::GetInstance()->ChangeScene(new Result);
+	}
 }
 void Game::Finalize()
 {

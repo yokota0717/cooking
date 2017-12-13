@@ -31,6 +31,9 @@
     <ClCompile Include="Metronome.cpp">
       <Filter>ソース</Filter>
     </ClCompile>
+    <ClCompile Include="Result.cpp">
+      <Filter>ソース</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Usingheaders.h">
@@ -64,6 +67,9 @@
       <Filter>ヘッダ</Filter>
     </ClInclude>
     <ClInclude Include="Metronome.h">
+      <Filter>ヘッダ</Filter>
+    </ClInclude>
+    <ClInclude Include="Result.h">
       <Filter>ヘッダ</Filter>
     </ClInclude>
   </ItemGroup>

@@ -31,7 +31,7 @@ int Sound::PlayBGM()
 	if (flag == true)
 	{
 		ChangeVolumeSoundMem(255 * 90 / 100, BGM);
-		PlaySoundMem(BGM, DX_PLAYTYPE_LOOP);
+		PlaySoundMem(BGM, DX_PLAYTYPE_BACK);
 		flag = false;
 	}
 	return BGM;

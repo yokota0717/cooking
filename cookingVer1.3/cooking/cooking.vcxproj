@@ -25,6 +25,7 @@
     <ClInclude Include="Input.h" />
     <ClInclude Include="Note.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Result.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Sound.h" />
@@ -38,6 +39,7 @@
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Note.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Result.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Sound.cpp" />
     <ClCompile Include="Main.cpp" />

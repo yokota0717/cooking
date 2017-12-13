@@ -11,6 +11,7 @@
 #include "Game.h"
 #include "BezierCurve.h"
 #include "Note.h"
+#include "Result.h"
 #include <cmath>
 #include "FPS.h"
 #include <fstream>
