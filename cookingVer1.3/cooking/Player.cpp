@@ -10,10 +10,6 @@ namespace Player {
 	Effect effect;
 	Metronome::StaffAnimation staff;
 
-	int Gstand[3];
-	int GcutR[3];
-	int GcutL[3];
-
 	void Effect_draw();
 
 	bool Initialize()
@@ -41,10 +37,10 @@ namespace Player {
 		effect.flag = false;
 		effect.Cnt = 0;
 
-		//c,c2はエラーチェック用変数。
-		int c = LoadDivGraph("./Graph/stand.png", 3, 3, 1, 277, 502, Gstand);
-		int c2 =LoadDivGraph("./Graph/cutR.png", 3, 3, 1, 394, 495, GcutR);
-		int c3 = LoadDivGraph("./Graph/cutL.png", 3, 3, 1, 388, 517, GcutL);
+		//c1,c2,c3はエラーチェック用変数。
+		int c = LoadDivGraph("./Graph/stand.png", 3, 3, 1, 277, 524, cock.Gstand);
+		int c2 =LoadDivGraph("./Graph/cutR.png", 3, 3, 1, 394, 495, cock.GcutR);
+		int c3 = LoadDivGraph("./Graph/cutL.png", 3, 3, 1, 388, 517, cock.GcutL);
 		cock.e_pic = LoadGraph("./Graph/effect.png", true);
 
 		if (c == -1 || c2 == -1 || c3 == -1)
@@ -73,14 +69,6 @@ namespace Player {
 			staff.flag = true;
 		}
 
-		if (Key(KEY_INPUT_RIGHT) >= 1)
-		{
-			cock.x += 5;
-		}
-		if (Key(KEY_INPUT_LEFT) >= 1)
-		{
-			cock.x -= 5;
-		}
 		if (Key(KEY_INPUT_Z) == 1)
 		{
 			cock.state = cut;
@@ -90,17 +78,17 @@ namespace Player {
 	void Draw()
 	{
 		//★待機状態だけ描く
-		int anime[14] = { 2,2,2,1,1,0,0,0,0,0,1,1,2,2 };
+		int anime[num*2] = { 2,2,2,1,1,0,0,0,0,0,1,1,2,2 };
 		if (cock.state == down && cock.flag == true) {
 			++cock.animCnt;
-			if (cock.animCnt > 7) {
+			if (cock.animCnt > num) {
 				cock.state = up;
 				cock.flag = false;
 			}
 		}
 		if (cock.state == up && cock.flag == true) {
 			++cock.animCnt;
-			if (cock.animCnt > 13) {
+			if (cock.animCnt > num*2-1) {
 				cock.animCnt = 0;
 				cock.state = down;
 				cock.flag = false;
@@ -108,7 +96,7 @@ namespace Player {
 		}
 		if (cock.state == up || cock.state == down)	
 		{
-			DrawRotaGraph(int(cock.x), int(cock.y), 0.6, 0.0, Gstand[anime[cock.animCnt]], true);
+			DrawRotaGraph(int(cock.x), int(cock.y), 0.6, 0.0, cock.Gstand[anime[cock.animCnt]], true);
 		}
 		//★
 
@@ -116,7 +104,7 @@ namespace Player {
 		//★野菜が切れたら指定した座標に表示
 		if (cock.state == cut && cock.dir == RIGHT) {
 			int anime[num] = { 0,0,1,1,2,2,2 };
-			DrawRotaGraph(int(cock.x), int(cock.y), 0.6, 0.0, GcutR[anime[cock.animCnt / 2]], true);
+			DrawRotaGraph(int(cock.x), int(cock.y), 0.6, 0.0, cock.GcutR[anime[cock.animCnt / 2]], true);
 			cock.animCnt++;
 			if (effect.flag == true) {
 				Effect_draw();
@@ -129,7 +117,7 @@ namespace Player {
 
 		if (cock.state == cut && cock.dir == LEFT) {
 			int anime[num] = { 0,0,1,1,2,2,2 };
-			DrawRotaGraph(int(cock.x), int(cock.y), 0.6, 0.0, GcutL[anime[cock.animCnt / 2]], true);
+			DrawRotaGraph(int(cock.x), int(cock.y), 0.6, 0.0, cock.GcutL[anime[cock.animCnt / 2]], true);
 			cock.animCnt++;
 			if (effect.flag == true) { //エフェクト
 				Effect_draw();
@@ -150,9 +138,12 @@ namespace Player {
 
 	void Fin()
 	{
-		for (int i = 0; i < num; ++i)
+		for (int i = 3; i < num; ++i)
 		{
-			DeleteGraph(cock.picHandle[i]);
+			DeleteGraph(cock.Gstand[i]);
+			DeleteGraph(cock.GcutR[i]);
+			DeleteGraph(cock.GcutL[i]);
+			DeleteGraph(cock.e_pic);
 		}
 	}
 

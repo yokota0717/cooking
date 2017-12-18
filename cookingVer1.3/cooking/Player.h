@@ -9,7 +9,6 @@ namespace Player
 	};
 
 	enum Dir {
-		NON, //	èâä˙èÛë‘
 		LEFT,
 		RIGHT,
 		TOP,
@@ -23,7 +22,9 @@ namespace Player
 				        w,
 			            h,
 		 	      animCnt,
-			picHandle[3];
+				Gstand[3],
+				 GcutR[3],
+		         GcutL[3];
 		int e_pic;
 		bool          flag;
 		State	    state;
@@ -45,7 +46,6 @@ namespace Player
 	void Fin();
 
 	void Effect_On();
-
 	void  CutL_On();
 	void  CutR_On();
 	void  Set_Cut();
