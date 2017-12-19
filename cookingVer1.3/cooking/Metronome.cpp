@@ -6,8 +6,6 @@ namespace Metronome {
 	ChefAnimation chef;
 	SubAnimation sub;
 
-	int stf;
-	int stfX;
 
 
 	bool Initialize() {
@@ -20,12 +18,13 @@ namespace Metronome {
 
 		staff.cnt = 1;
 		staff.flag = true;
-		stf = LoadGraph("./Graph/staff.png");
-		stfX = 0;
 
 		sub.flag = false;
 		sub.x = -137;
 		sub.y = 77;
+		sub.stf = LoadGraph("./Graph/staff.png");
+		sub.aniCnt = 0;
+		sub.state = up;
 
 		chef.chefY = 27;
 		chef.anime = true;
@@ -51,6 +50,7 @@ namespace Metronome {
 		{
 			staff.flag = false;
 			chef.anime = true;
+			sub.anime = true;
 			++staff.cnt;
 		}
 
@@ -61,13 +61,41 @@ namespace Metronome {
 			staff.flag = true;
 		}
 
-		if (sub.flag == true) 
+		//部下のアニメーション（汚いので後で直す）
+		if (sub.x >= 960)
 		{
+			sub.x = -137;
+			sub.flag = false;
+		}
+		if (staff.current >= 18461.54 && staff.current <= 19000.54) //18461.54
+		{
+			sub.flag = true;
+		}
+
+		if (staff.current >= 47076.92 && staff.current <= 48876.92)  //47076.92
+		{
+			sub.flag = true;
+		}
+
+		if (sub.flag == true) {
 			sub.x += 2;
-			if (sub.x >= 500)
-			{
-				sub.flag = false;
-				sub.x = -137;
+			if (sub.state == down && sub.anime == true) {
+				sub.y -= 1;
+				++sub.aniCnt;
+				if (sub.aniCnt >= 10) {
+					sub.state = up;
+					sub.anime = false;
+					sub.aniCnt = 0;
+				}
+			}
+			if (sub.state == up && sub.anime == true) {
+				sub.y += 1;
+				++sub.aniCnt;
+				if (sub.aniCnt >= 10) {
+					sub.state = down;
+					sub.anime = false;
+					sub.aniCnt = 0;
+				}
 			}
 		}
 
@@ -91,7 +119,7 @@ namespace Metronome {
 		}
 		
 		DrawGraph(0, 0, chef.bg1, true);
-		DrawGraph(sub.x, sub.y, stf, TRUE);
+		DrawGraph(sub.x, sub.y, sub.stf, true);
 		DrawGraph(40, chef.chefY, chef.chef[ani[chef.aniCnt/2]], true);
 		DrawGraph(0, 263, chef.bg2, true);
 
@@ -103,6 +131,7 @@ namespace Metronome {
 		for (int i = 0; i < 3; i++) {
 			DeleteGraph(chef.chef[i]);
 		}
+		DeleteGraph(chef.bg2);
 	}
 
 	void bgAni()

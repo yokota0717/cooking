@@ -41,6 +41,7 @@ namespace Player {
 		int c = LoadDivGraph("./Graph/stand.png", 3, 3, 1, 277, 524, cock.Gstand);
 		int c2 =LoadDivGraph("./Graph/cutR.png", 3, 3, 1, 394, 495, cock.GcutR);
 		int c3 = LoadDivGraph("./Graph/cutL.png", 3, 3, 1, 388, 517, cock.GcutL);
+		int c4 = LoadDivGraph("./Graph/bottom.png", 3, 3, 1, 336, 521, cock.GcutB);
 		cock.e_pic = LoadGraph("./Graph/effect.png", true);
 
 		if (c == -1 || c2 == -1 || c3 == -1)
@@ -127,6 +128,19 @@ namespace Player {
 				cock.animCnt = 0;
 			}
 		}
+
+		if (cock.state == cut && cock.dir == BOTTOM) {
+			int anime[num] = { 0,0,1,1,2,2,2 };
+			DrawRotaGraph(int(cock.x), int(cock.y), 0.6, 0.0, cock.GcutB[anime[cock.animCnt / 2]], true);
+			cock.animCnt++;
+			if (effect.flag == true) { //エフェクト
+				Effect_draw();
+			}
+			if (cock.animCnt > num * 2 - 1) {
+				cock.state = down;
+				cock.animCnt = 0;
+			}
+		}
 		//★
 
 		//あたり判定の可視化
@@ -160,6 +174,10 @@ namespace Player {
 	{
 		cock.dir = RIGHT;
 	}
+	void HitB_On()		//プレイヤーが右を向く
+	{
+		cock.dir = BOTTOM;
+	}
 
 	void Set_Cut() //オートモード用
 	{
@@ -174,6 +192,9 @@ namespace Player {
 			}
 			if (cock.dir == LEFT) {		 //左方向のエフェクト
 				DrawRotaGraph((check.x / 2) + 10, check.y + 90, 1.0, 0.0, cock.e_pic, true);
+			}
+			if (cock.dir == BOTTOM) {		 //下方向のエフェクト
+				DrawRotaGraph(check.x - 145, check.y + 240, 1.0, 0.0, cock.e_pic, true);
 			}
 		}
 		else

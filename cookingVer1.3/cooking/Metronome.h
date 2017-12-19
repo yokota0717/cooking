@@ -1,5 +1,10 @@
 #pragma once
 namespace Metronome {
+	enum State {
+		up,
+		down,
+	};
+
 	struct StaffAnimation {
 		float BPM;				//‹ÈBPM
 		float second;			//1•b
@@ -24,8 +29,11 @@ namespace Metronome {
 	
 	struct SubAnimation {
 		bool flag;
-		int x;
-		int y;
+		int x, y,
+		   	 stf,
+		  aniCnt;
+		State state;
+		bool anime;
 	};
 
 	bool Initialize();

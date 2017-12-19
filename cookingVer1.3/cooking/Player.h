@@ -24,7 +24,8 @@ namespace Player
 		 	      animCnt,
 				Gstand[3],
 				 GcutR[3],
-		         GcutL[3];
+		         GcutL[3],
+		  		 GcutB[3];
 		int e_pic;
 		bool          flag;
 		State	    state;
@@ -48,6 +49,7 @@ namespace Player
 	void Effect_On();
 	void  CutL_On();
 	void  CutR_On();
+	void  HitB_On();
 	void  Set_Cut();
 
 }

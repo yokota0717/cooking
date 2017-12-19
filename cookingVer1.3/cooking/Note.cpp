@@ -340,9 +340,6 @@ void Note::Update()
 			move.state = off;
 		}
 
-		if (score >= 2 ) {
-			Metronome::bgAni();
-		}
 
 }
 
