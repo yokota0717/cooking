@@ -19,4 +19,3 @@
 #include <sstream> 
 #include "Metronome.h"
 using namespace std;
-int& Score(int s = 0);

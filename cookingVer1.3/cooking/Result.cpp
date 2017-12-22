@@ -23,9 +23,17 @@ void Result::Update()
 void Result::Draw()
 {
 	DrawGraph(0, 0, bghandle, true);
-	if (Score() >= 100)
+	if (Score() >= 100 && Score() < 200)
 	{
 		DrawFormatString(0, 0, GetColor(0, 0, 0), "100ì_à»è„Ç≈Ç∑");
+	}
+	if (Score() >= 200)
+	{
+		DrawFormatString(0, 0, GetColor(0, 0, 0), "200ì_à»è„Ç≈Ç∑");
+	}
+	if (Score() <= 50)
+	{
+		DrawFormatString(0, 0, GetColor(0, 0, 0), "50ì_à»â∫Ç≈Ç∑m9(^ÑD^)Ãﬂ∑ﬁ¨∞");
 	}
 }
 

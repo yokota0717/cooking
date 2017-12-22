@@ -133,8 +133,8 @@ public:
 	void Fin();
 };
 
-bool Note_Check_Good(int c, int j);
-bool Note_Check_Cool(int c, int j);
-bool Note_Check_Bad(int c, int j);
-bool Auto(int c, int j);
-
+inline bool Note_Check_Good(int c, int j);
+inline bool Note_Check_Cool(int c, int j);
+inline bool Note_Check_Bad(int c, int j);
+inline bool Auto(int c, int j);
+inline int& Score(int s = 0);

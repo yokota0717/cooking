@@ -216,20 +216,8 @@ bool Note::Initialize()
 	move.state = off;
 	bez.bez = move.start;
 	appearSEplayed = false;
-	
-	//move.pos.x = SCREEN_WIDIH + 50;
-	//move.pos.y = SCREEN_HEIGHT / 2;
-	//move.note_type = N_one;
-	//move.speed = 17.0f * 2.2f;
-	//move.start.x = move.pos.x;
-	//move.start.y = move.pos.y;
-	//move.end.x = SCREEN_WIDIH / 2;
-	//move.end.y = SCREEN_HEIGHT / 2 + 160;
-	//move.dir.x = fabs(move.start.x - move.end.x) / 2 + move.end.x;
-	//move.dir.y = 100;
-
-	
 	data.hit = Normal;
+
 	for (int i = 0; i < 6; ++i)
 	{
 		if (check[i] == -1)
@@ -238,11 +226,8 @@ bool Note::Initialize()
 		}
 	}
 	
-
 	return true;
-
 }
-
 
 
 void Note::Update()
@@ -276,7 +261,7 @@ void Note::Update()
 		{
 		case Normal:
 			//オートモード(デバッグ用、リリース時には消す) 
-			/*if (Auto(data.current, data.judge) && data.hit == Normal)
+			if (Auto(data.current, data.judge) && data.hit == Normal)
 			{
 				sound.PlaySE(data.ID);
 				Player::Set_Cut();
@@ -284,7 +269,8 @@ void Note::Update()
 				move.state = cut;
 				Player::Effect_On();
 				Player_Animation(data.d);
-			}*/
+				Score(10);
+			}
 			//
 			if (Note_Check_Cool(data.current, data.judge) && data.hit == Normal)
 			{
