@@ -8,7 +8,7 @@ extern const int
 SCREEN_WIDIH,
 SCREEN_HEIGHT;
 
-extern int score = 0;
+
 
 Sound GetSound()
 {
@@ -68,7 +68,7 @@ void Game::Draw()
 		note[i].Draw();
 	}
 	//あとで消す
-	DrawFormatString(0, 0, GetColor(255, 0, 0),"得点：%d", score);
+	DrawFormatString(0, 0, GetColor(255, 0, 0),"得点：%d", Score());
 	
 	fps.Draw();
 

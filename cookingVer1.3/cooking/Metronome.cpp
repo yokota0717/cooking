@@ -6,7 +6,7 @@ namespace Metronome {
 	ChefAnimation chef;
 	SubAnimation sub;
 
-
+	void Sub_Animation();
 
 	bool Initialize() {
 		staff.BPM = 130;									//曲BPM
@@ -62,45 +62,7 @@ namespace Metronome {
 			staff.flag = true;
 		}
 
-		//部下のアニメーション（汚いので後で直す）
-		if (sub.x >= 960)
-		{
-			sub.x = -175;
-			sub.flag = false;
-		}
-		if (staff.current >= 18461.54 && staff.current <= 19000.54) //18461.54
-		{
-			sub.foodNum = 0;
-			sub.flag = true;
-		}
-
-		if (staff.current >= 47076.92 && staff.current <= 48876.92)  //47076.92
-		{
-			sub.foodNum = 1;
-			sub.flag = true;
-		}
-
-		if (sub.flag == true) {
-			sub.x += 2;
-			if (sub.state == down && sub.anime == true) {
-				sub.y -= 1;
-				++sub.aniCnt;
-				if (sub.aniCnt >= 10) {
-					sub.state = up;
-					sub.anime = false;
-					sub.aniCnt = 0;
-				}
-			}
-			if (sub.state == up && sub.anime == true) {
-				sub.y += 1;
-				++sub.aniCnt;
-				if (sub.aniCnt >= 10) {
-					sub.state = down;
-					sub.anime = false;
-					sub.aniCnt = 0;
-				}
-			}
-		}
+		Sub_Animation();
 
 	}
 
@@ -141,4 +103,46 @@ namespace Metronome {
 		DeleteGraph(chef.bg2);
 	}
 
+	void Sub_Animation()
+	{
+		
+		if (sub.x >= 960)		//画面から消えたら位置を初期化
+		{
+			sub.x = -175;
+			sub.flag = false;
+		}
+		if (staff.current >= 18461.54 && staff.current <= 19000.54) //18461.54（３分の１の区切りいい部分）
+		{
+			sub.foodNum = 0;
+			sub.flag = true;
+		}
+
+		if (staff.current >= 47076.92 && staff.current <= 48876.92)  //47076.92（３分の２の区切りいい部分）
+		{
+			sub.foodNum = 1;
+			sub.flag = true;
+		}
+
+		if (sub.flag == true) {	
+			sub.x += 2;
+			if (sub.state == down && sub.anime == true) {
+				sub.y -= 1;
+				++sub.aniCnt;
+				if (sub.aniCnt >= 10) {
+					sub.state = up;
+					sub.anime = false;
+					sub.aniCnt = 0;
+				}
+			}
+			if (sub.state == up && sub.anime == true) {
+				sub.y += 1;
+				++sub.aniCnt;
+				if (sub.aniCnt >= 10) {
+					sub.state = down;
+					sub.anime = false;
+					sub.aniCnt = 0;
+				}
+			}
+		}
+	}
 }

@@ -94,10 +94,8 @@ struct Data		//音符の判定などの情報
 	//int			j_cnt;		//判定数
 	//int        ID_cnt;		//次のIDに進める
 	//int         a_cnt;		//出現数
-	
-	int	        score;		//得点
 	Hit	          hit;		//判定用
-
+	
 	
 		
 };

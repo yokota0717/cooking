@@ -17,11 +17,16 @@ void Result::Update()
 	{
 		SceneManeger::GetInstance()->ChangeScene(new Title);
 	}
+
 }
 
 void Result::Draw()
 {
 	DrawGraph(0, 0, bghandle, true);
+	if (Score() >= 100)
+	{
+		DrawFormatString(0, 0, GetColor(0, 0, 0), "100ì_à»è„Ç≈Ç∑");
+	}
 }
 
 void Result::Finalize()

@@ -5,7 +5,7 @@ SCREEN_HEIGHT,
 quarterNote = 461,		//Žl•ª‰¹•„‚Ì’·‚³(ms)
 halfNote = 923;			//“ñ•ª‰¹•„‚Ì’·‚³(ms)
 
-extern int score;
+
 void Player_Animation(int data);
 
 
@@ -196,6 +196,13 @@ bool Auto(int c, int j)
 	}
 	return false;
 }
+int& Score(int s)
+{
+	static int score;
+	
+	score += s;
+	return score;
+}
 bool Note::Initialize()
 {
 	int check[6];
@@ -209,7 +216,7 @@ bool Note::Initialize()
 	move.state = off;
 	bez.bez = move.start;
 	appearSEplayed = false;
-	score = 0;
+	
 	//move.pos.x = SCREEN_WIDIH + 50;
 	//move.pos.y = SCREEN_HEIGHT / 2;
 	//move.note_type = N_one;
@@ -282,7 +289,7 @@ void Note::Update()
 			if (Note_Check_Cool(data.current, data.judge) && data.hit == Normal)
 			{
 				sound.PlaySE(data.ID);
-				score += 10;
+				Score(10);
 				data.hit = hit;
 				move.state = cut;
 				Player_Animation(data.d);
@@ -291,7 +298,7 @@ void Note::Update()
 			{
 				sound.PlaySE(data.ID);
 
-				score += 2;
+				Score(5);
 				data.hit = hit;
 				move.state = cut;
 				Player_Animation(data.d);
