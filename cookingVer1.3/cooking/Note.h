@@ -45,7 +45,7 @@ enum Hit
 enum Direction {	//oŒ»ˆÊ’u‚Ì•ûŒü
 	LEFT,
 	RIGHT,
-	TOP,
+	BOTTOM,
 };
 struct BezierCurve {
 	POS			bez;

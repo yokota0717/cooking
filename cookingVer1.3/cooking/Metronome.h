@@ -28,12 +28,14 @@ namespace Metronome {
 	};
 	
 	struct SubAnimation {
-		bool flag;
-		int x, y,
-		   	 stf,
-		  aniCnt;
-		State state;
-		bool anime;
+		bool flag;		//部下の表示フラッグ
+		int x, y,		//部下のx,y値
+			stf,		//部下の画像
+			aniCnt,		//アニメーションカウント
+			food[2],	//食べ物の画像
+			foodNum;	//画像番号
+		State state;	//上下アニメーションのため
+		bool anime;		//
 	};
 
 	bool Initialize();
@@ -43,6 +45,4 @@ namespace Metronome {
 	void Draw();
 
 	void Fin();
-
-	void bgAni();
 }

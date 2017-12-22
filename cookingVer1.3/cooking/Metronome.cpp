@@ -20,11 +20,12 @@ namespace Metronome {
 		staff.flag = true;
 
 		sub.flag = false;
-		sub.x = -137;
+		sub.x = -175;
 		sub.y = 77;
 		sub.stf = LoadGraph("./Graph/staff.png");
 		sub.aniCnt = 0;
 		sub.state = up;
+		LoadDivGraph("./Graph/food.png", 2, 2, 1, 76, 40, sub.food);
 
 		chef.chefY = 27;
 		chef.anime = true;
@@ -64,16 +65,18 @@ namespace Metronome {
 		//部下のアニメーション（汚いので後で直す）
 		if (sub.x >= 960)
 		{
-			sub.x = -137;
+			sub.x = -175;
 			sub.flag = false;
 		}
 		if (staff.current >= 18461.54 && staff.current <= 19000.54) //18461.54
 		{
+			sub.foodNum = 0;
 			sub.flag = true;
 		}
 
 		if (staff.current >= 47076.92 && staff.current <= 48876.92)  //47076.92
 		{
+			sub.foodNum = 1;
 			sub.flag = true;
 		}
 
@@ -119,6 +122,7 @@ namespace Metronome {
 		}
 		
 		DrawGraph(0, 0, chef.bg1, true);
+		DrawGraph(sub.x + 91, sub.y + 130, sub.food[sub.foodNum], true);
 		DrawGraph(sub.x, sub.y, sub.stf, true);
 		DrawGraph(40, chef.chefY, chef.chef[ani[chef.aniCnt/2]], true);
 		DrawGraph(0, 263, chef.bg2, true);
@@ -127,16 +131,14 @@ namespace Metronome {
 
 	void Fin()
 	{
-		DeleteGraph(chef.bg2);
+		DeleteGraph(chef.bg1);
+		DeleteGraph(sub.food[0]);
+		DeleteGraph(sub.food[1]);
+		DeleteGraph(sub.stf);
 		for (int i = 0; i < 3; i++) {
 			DeleteGraph(chef.chef[i]);
 		}
 		DeleteGraph(chef.bg2);
-	}
-
-	void bgAni()
-	{
-		sub.flag = true;
 	}
 
 }
