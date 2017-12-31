@@ -116,7 +116,7 @@ public:
 	Data data;
 	Move move;
 	BezierCurve bez;
-
+	bool start;
 	//Note(){}
 	void SetScore(int id, Note& note, const File& file);	//ファイルから読んだデータをセットする
 	void SetN_Type(Note& note);			//N_Typeを決める

@@ -215,7 +215,7 @@ bool Note::Initialize()
 	bez.bez = move.start;
 	appearSEplayed = false;
 	data.hit = Normal;
-
+	start = false;
 	for (int i = 0; i < 6; ++i)
 	{
 		if (check[i] == -1)
@@ -234,8 +234,13 @@ void Note::Update()
 	auto sound = GetSound();
 
 	data.current = GetSoundCurrentTime(sound.BGM);
+	//開始直後だとdata.appearに-461が入ってしまうので強引に出現処理に入らないようにしている(´・ω・`)
+	if (start == false && data.appear > 0)
+	{
+		start = true;
+	}
 	//出現
-	if (!appearSEplayed && move.state == off && data.current >= data.appear)
+	if (start == true && !appearSEplayed && move.state == off && data.current >= data.appear)
 	{
 		sound.PlaySE(appear);
 		appearSEplayed = true;
