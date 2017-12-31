@@ -2,8 +2,9 @@
 
 bool Result::Initialize()
 {
-	
+	flag = false;
 	bghandle = LoadGraph("./Graph/ƒŠƒUƒ‹ƒg.png");
+	sound.SetBGM("./Sound/“÷‚ğÄ‚­.ogg");
 	if (bghandle == -1)
 	{
 		return false;
@@ -13,11 +14,11 @@ bool Result::Initialize()
 
 void Result::Update()
 {
+	sound.PlayBGM_BACK();
 	if (Key(KEY_INPUT_X) == 1)
 	{
 		SceneManeger::GetInstance()->ChangeScene(new Title);
 	}
-
 }
 
 void Result::Draw()
@@ -40,5 +41,5 @@ void Result::Draw()
 void Result::Finalize()
 {
 	InitGraph();
-	//InitSoundMem();	//¡‚Ì‚Æ‚±‚ë‰¹‚ª‚È‚¢‚Ì‚Åg‚í‚È‚¢
+	InitSoundMem();
 }

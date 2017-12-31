@@ -6,8 +6,6 @@ quarterNote = 461,		//l•ª‰¹•„‚Ì’·‚³(ms)
 halfNote = 923;			//“ñ•ª‰¹•„‚Ì’·‚³(ms)
 
 
-void Player_Animation(int data);
-
 
 bool File::LoadScore()
 {
@@ -108,7 +106,7 @@ void Note::SetAppearTime(Note& note) {
 	case N_rest:
 		note.data.appear = note.data.judge - halfNote;
 		break;
-
+		
 	}
 }
 
@@ -268,7 +266,7 @@ void Note::Update()
 				data.hit = hit;
 				move.state = cut;
 				Player::Effect_On();
-				Player_Animation(data.d);
+				Player::Player_Animation(data.d);
 				Score(10);
 			}
 			//
@@ -278,7 +276,7 @@ void Note::Update()
 				Score(10);
 				data.hit = hit;
 				move.state = cut;
-				Player_Animation(data.d);
+				Player::Player_Animation(data.d);
 			}
 			if (Note_Check_Good(data.current, data.judge) && data.hit == Normal)
 			{
@@ -287,7 +285,7 @@ void Note::Update()
 				Score(5);
 				data.hit = hit;
 				move.state = cut;
-				Player_Animation(data.d);
+				Player::Player_Animation(data.d);
 			}
 			//”»’èŠÔ“à‚É“ü—Í‚ª‚È‚¢ê‡
 			else if (Note_Check_Bad(data.current, data.judge) && data.hit == Normal)
@@ -413,18 +411,5 @@ void Note::Fin()
 	for (int i = 0; i < 4; ++i)
 	{
 		DeleteGraph(move.pic_carrot[i]);
-	}
-}
-
-void Player_Animation(int data)
-{
-	if (data == LEFT) {
-		Player::CutL_On();
-	}
-	if (data == RIGHT) {
-		Player::CutR_On();
-	}
-	if (data == BOTTOM) {
-		Player::HitB_On();
 	}
 }

@@ -7,8 +7,9 @@ public:
 	void Update()	  override;
 	void Draw()       override;
 	void Finalize()   override;
-
+	Sound sound;
 private:
 	int bghandle;
-
+	
+	bool flag;
 };

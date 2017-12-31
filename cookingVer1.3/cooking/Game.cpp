@@ -39,7 +39,7 @@ bool Game::Initialize()
 	}
 	
 	
-	sound.PlayBGM();
+	sound.PlayBGM_BACK();
 	
 	return true;		
 }
@@ -55,7 +55,7 @@ void Game::Update()
 	fps.Update();
 	if (Key(KEY_INPUT_X) == 1)
 	{
-		SceneManeger::GetInstance()->ChangeScene(new Title);
+		SceneManeger::GetInstance()->ChangeScene(new Result);
 	}
 	fps.Wait();
 }

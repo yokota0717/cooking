@@ -26,12 +26,33 @@ bool Sound::Initialize()
 	}
 	return true;
 }
-int Sound::PlayBGM()
+void Sound::SetBGM(const TCHAR *FileName)
+{
+	BGM = LoadSoundMem(FileName);
+	flag = true;
+}
+void Sound::InitBGM()
+{
+	DeleteSoundMem(BGM);
+	flag = true;
+
+}
+int Sound::PlayBGM_BACK()
 {
 	if (flag == true)
 	{
 		ChangeVolumeSoundMem(255 * 90 / 100, BGM);
 		PlaySoundMem(BGM, DX_PLAYTYPE_BACK);
+		flag = false;
+	}
+	return BGM;
+}
+int Sound::PlayBGM_LOOP()
+{
+	if (flag == true)
+	{
+		ChangeVolumeSoundMem(255 * 90 / 100, BGM);
+		PlaySoundMem(BGM, DX_PLAYTYPE_LOOP);
 		flag = false;
 	}
 	return BGM;

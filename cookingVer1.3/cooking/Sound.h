@@ -30,24 +30,19 @@ class Sound
 private:
 
 	static constexpr int SENUM = 20;
-	
-	
+	int    SE[SENUM];
+	bool   flag;
 
 public:
 
-	
-	bool   flag;
-	int    SE[SENUM];
 	TYPE se_type;
-
 	int    BGM;
-	
 	bool Initialize();
-
-	int  PlayBGM();
-
-	int  PlaySE(int);	//enum型でIDを指定、戻り値はIDに対応したSE
-
-	void Fin();
+	void SetBGM(const TCHAR *FileName);	//BGMとして使いたいファイルのパスを指定
+	int  PlayBGM_BACK();				//BGMをバックグラウンド再生（ループなし）
+	int  PlayBGM_LOOP();				//BGMをループ再生
+	void InitBGM();						//現在格納されているBGMデータを解放し、再生フラグの再セット
+	int  PlaySE(int);					//enum型でIDを指定、戻り値は0
+	void Fin();							//全データ開放
 
 };

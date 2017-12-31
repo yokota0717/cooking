@@ -51,5 +51,5 @@ namespace Player
 	void  CutR_On();
 	void  HitB_On();
 	void  Set_Cut();
-
+	void Player_Animation(int data);
 }

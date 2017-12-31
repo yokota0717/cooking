@@ -202,6 +202,19 @@ namespace Player {
 	}
 
 
+	void Player_Animation(int data)
+	{
+		if (data == LEFT) {
+			Player::CutL_On();
+		}
+		if (data == RIGHT) {
+			Player::CutR_On();
+		}
+		if (data == BOTTOM) {
+			Player::HitB_On();
+		}
+	}
+
 	void Effect_On()
 	{
 		effect.flag = true;
