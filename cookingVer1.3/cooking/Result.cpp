@@ -18,6 +18,7 @@ void Result::Update()
 	if (Key(KEY_INPUT_X) == 1)
 	{
 		SceneManeger::GetInstance()->ChangeScene(new Title);
+		Score() = 0;
 	}
 }
 

@@ -9,7 +9,7 @@ bool Sound::Initialize()
 	SE[broccoli] = LoadSoundMem("./Sound/キャベツ.ogg");
 	SE[cabbage] = LoadSoundMem("./Sound/キャベツ.ogg");
 	SE[tomato] = LoadSoundMem("./Sound/トマト.ogg");
-	SE[potato] = LoadSoundMem("./Sound/キャベツ.ogg");
+	SE[potato] = LoadSoundMem("./Sound/ジャガイモ.ogg");
 	SE[mouse] = LoadSoundMem("./Sound/キャベツ.ogg");
 	SE[grill]   = LoadSoundMem("./Sound/肉を焼く.ogg");
 	BGM = LoadSoundMem("./Sound/未完成.wav");
