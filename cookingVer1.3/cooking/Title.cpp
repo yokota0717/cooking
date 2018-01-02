@@ -4,6 +4,7 @@
 extern const int
 SCREEN_WIDIH,
 SCREEN_HEIGHT;
+
 bool Title::Initialize()
 {
 	ƒ¿ = 255 / 3;
@@ -91,7 +92,6 @@ void Title::Draw()
 	{
 		ƒ¿ -= 2;
 	}
-
 }
 
 void Title::Finalize()

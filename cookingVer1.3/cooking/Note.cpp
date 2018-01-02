@@ -328,16 +328,17 @@ void Note::Update()
 void Note::Draw()
 {
 
+	SetDrawMode(DX_DRAWMODE_BILINEAR);	//実数ピクセル補間
 	if (move.state == come)	//死ぬ前の音符
 	{
 		switch (data.ID)
 		{
-		case carrot:  DrawRotaGraph(int(move.pos.x), int(move.pos.y), 1.0, 0.0, move.pic_carrot[0],   true); break;
-		case onion:   DrawRotaGraph(int(move.pos.x), int(move.pos.y), 1.0, 0.0, move.pic_onion[0],    true); break;
-		case tomato:  DrawRotaGraph(int(move.pos.x), int(move.pos.y), 1.0, 0.0, move.pic_tomato[0],   true); break;
-		case cabbage: DrawRotaGraph(int(move.pos.x), int(move.pos.y), 1.0, 0.0, move.pic_cabbage[0],  true); break;
-		case potato:  DrawRotaGraph(int(move.pos.x), int(move.pos.y), 1.0, 0.0, move.pic_potato[0],   true); break;
-		case broccoli:DrawRotaGraph(int(move.pos.x), int(move.pos.y), 1.0, 0.0, move.pic_broccoli[0], true); break;
+		case carrot:  DrawRotaGraphF(move.pos.x, move.pos.y, 1.0, 0.0, move.pic_carrot[0],   true); break;
+		case onion:   DrawRotaGraphF(move.pos.x, move.pos.y, 1.0, 0.0, move.pic_onion[0],    true); break;
+		case tomato:  DrawRotaGraphF(move.pos.x, move.pos.y, 1.0, 0.0, move.pic_tomato[0],   true); break;
+		case cabbage: DrawRotaGraphF(move.pos.x, move.pos.y, 1.0, 0.0, move.pic_cabbage[0],  true); break;
+		case potato:  DrawRotaGraphF(move.pos.x, move.pos.y, 1.0, 0.0, move.pic_potato[0],   true); break;
+		case broccoli:DrawRotaGraphF(move.pos.x, move.pos.y, 1.0, 0.0, move.pic_broccoli[0], true); break;
 		}
 		
 	}
@@ -349,7 +350,7 @@ void Note::Draw()
 		{
 		case carrot:
 			if ((move.animeCnt / 3) <= 3) {
-				DrawRotaGraph(int(move.pos.x), int(move.pos.y), 1.0, 0.0, move.pic_carrot[animTable[move.animeCnt / 3]], true);
+				DrawRotaGraphF(move.pos.x, move.pos.y, 1.0, 0.0, move.pic_carrot[animTable[move.animeCnt / 3]], true);
 			}
 			else {
 				move.state = off;
@@ -357,7 +358,7 @@ void Note::Draw()
 			break;
 		case onion:
 			if ((move.animeCnt / 3) <= 3) {
-				DrawRotaGraph(int(move.pos.x), int(move.pos.y), 1.0, 0.0, move.pic_onion[animTable[move.animeCnt / 3]], true);
+				DrawRotaGraphF(move.pos.x, move.pos.y, 1.0, 0.0, move.pic_onion[animTable[move.animeCnt / 3]], true);
 			}
 			else {
 				move.state = off;
@@ -365,7 +366,7 @@ void Note::Draw()
 			break;
 		case tomato:
 			if ((move.animeCnt / 3) <= 3) {
-				DrawRotaGraph(int(move.pos.x), int(move.pos.y), 1.0, 0.0, move.pic_tomato[animTable[move.animeCnt / 3]], true);
+				DrawRotaGraphF(move.pos.x, move.pos.y, 1.0, 0.0, move.pic_tomato[animTable[move.animeCnt / 3]], true);
 			}
 			else {
 				move.state = off;
@@ -373,7 +374,7 @@ void Note::Draw()
 			break;
 		case cabbage:
 			if ((move.animeCnt / 3) <= 3) {
-				DrawRotaGraph(int(move.pos.x), int(move.pos.y), 1.0, 0.0, move.pic_cabbage[animTable[move.animeCnt / 3]], true);
+				DrawRotaGraphF(move.pos.x, move.pos.y, 1.0, 0.0, move.pic_cabbage[animTable[move.animeCnt / 3]], true);
 			}
 			else {
 				move.state = off;
@@ -381,7 +382,7 @@ void Note::Draw()
 			break;
 		case potato:
 		if ((move.animeCnt / 3) <= 3) {
-			DrawRotaGraph(int(move.pos.x), int(move.pos.y), 1.0, 0.0, move.pic_potato[animTable[move.animeCnt / 3]], true);
+			DrawRotaGraphF(move.pos.x, move.pos.y, 1.0, 0.0, move.pic_potato[animTable[move.animeCnt / 3]], true);
 		}
 		else {
 			move.state = off;
@@ -389,7 +390,7 @@ void Note::Draw()
 		break;
 		case broccoli:
 		if ((move.animeCnt / 3) <= 3) {
-			DrawRotaGraph(int(move.pos.x), int(move.pos.y), 1.0, 0.0, move.pic_broccoli[animTable[move.animeCnt / 3]], true);
+			DrawRotaGraphF(move.pos.x, move.pos.y, 1.0, 0.0, move.pic_broccoli[animTable[move.animeCnt / 3]], true);
 		}
 		else {
 			move.state = off;
@@ -398,7 +399,7 @@ void Note::Draw()
 		}
 		
 	}
-
+	SetDrawMode(DX_DRAWMODE_NEAREST);	//解除
 	Sound GetSound();
 	auto sound = GetSound();
 

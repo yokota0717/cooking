@@ -33,9 +33,9 @@ void Result::Draw()
 	{
 		DrawFormatString(0, 0, GetColor(0, 0, 0), "200ì_à»è„Ç≈Ç∑");
 	}
-	if (Score() <= 50)
+	if (Score() < 100)
 	{
-		DrawFormatString(0, 0, GetColor(0, 0, 0), "50ì_à»â∫Ç≈Ç∑m9(^ÑD^)Ãﬂ∑ﬁ¨∞");
+		DrawFormatString(0, 0, GetColor(0, 0, 0), "100ì_ñ¢ñûÇ≈Ç∑m9(^ÑD^)Ãﬂ∑ﬁ¨∞");
 	}
 }
 
