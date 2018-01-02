@@ -80,5 +80,8 @@
     <Filter Include="ヘッダ">
       <UniqueIdentifier>{a15f1005-dcca-4b17-aeff-dac667d74095}</UniqueIdentifier>
     </Filter>
+    <Filter Include="icon">
+      <UniqueIdentifier>{9cb01ddc-7639-4fe5-b7fe-515dc4482265}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
