@@ -87,12 +87,13 @@ namespace Player {
 		RCut_Animation();
 		LCut_Animation();
 		BHit_Animation();
-
+#if _DEBUG
 		//Ç†ÇΩÇËîªíËÇÃâ¬éãâª
 		DrawCircle(check.x + 10, check.y + 100, 50, GetColor(255, 0, 0), false);			//âE (x+10,y+90)
 		DrawCircle((check.x / 2) + 10, check.y + 90, 50, GetColor(255, 0, 0), false);		//ç∂ (x+10,y+90)
 		DrawCircle(check.x - 145, check.y - 110, 50, GetColor(255, 0, 0), false);//è„(x+10,y+90)
 		DrawCircle(check.x - 145, check.y + 240, 50, GetColor(255, 0, 0), false);//â∫(x+10,y+90)
+#endif
 	}
 
 	void Fin()

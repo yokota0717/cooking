@@ -1,5 +1,5 @@
 #include "Usingheaders.h"
-
+#if _DEBUG
 Fps::Fps():
 mStartTime(0),
 mCount(0),          //ƒJƒEƒ“ƒ^
@@ -40,3 +40,4 @@ void Fps::Wait()
 	}
 
 }
+#endif

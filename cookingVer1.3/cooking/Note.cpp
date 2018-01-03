@@ -158,7 +158,7 @@ bool Note_Check_Bad(int c, int j)
 //グッド判定
 bool Note_Check_Good(int c, int j)
 {
-	static constexpr int GOOD = 55;
+	static constexpr int GOOD = 65;
 	
 	if (c >= j - GOOD &&
 		c <= j + GOOD &&
@@ -204,12 +204,12 @@ int& Score(int s)
 bool Note::Initialize()
 {
 	int check[6];
-	check[0] = LoadDivGraph("./Graph/carrot.png", 4, 4, 1, 100, 100, move.pic_carrot);
-	check[1] = LoadDivGraph("./Graph/onion.png", 4, 4, 1, 100, 100, move.pic_onion);
+	check[0] = LoadDivGraph("./Graph/carrot.png",  4, 4, 1, 100, 100, move.pic_carrot);
+	check[1] = LoadDivGraph("./Graph/onion.png",   4, 4, 1, 100, 100, move.pic_onion);
 	check[2] = LoadDivGraph("./Graph/cabbage.png", 4, 4, 1, 100, 100, move.pic_cabbage);
-	check[3] = LoadDivGraph("./Graph/potato.png", 4, 4, 1, 100, 100, move.pic_potato);
-	check[4] = LoadDivGraph("./Graph/brory.png", 4, 4, 1, 100, 100, move.pic_broccoli);
-	check[5] = LoadDivGraph("./Graph/tomato.png", 4, 4, 1, 100, 100, move.pic_tomato);
+	check[3] = LoadDivGraph("./Graph/potato.png",  4, 4, 1, 100, 100, move.pic_potato);
+	check[4] = LoadDivGraph("./Graph/brory.png",   4, 4, 1, 100, 100, move.pic_broccoli);
+	check[5] = LoadDivGraph("./Graph/tomato.png",  4, 4, 1, 100, 100, move.pic_tomato);
 	move.animeCnt = 0;
 	move.state = off;
 	bez.bez = move.start;
@@ -264,6 +264,7 @@ void Note::Update()
 		{
 		case Normal:
 			//オートモード(デバッグ用、リリース時には消す) 
+#if _DEBUG
 			if (Auto(data.current, data.judge) && data.hit == Normal)
 			{
 				sound.PlaySE(data.ID);
@@ -274,6 +275,7 @@ void Note::Update()
 				Player::Player_Animation(data.d);
 				Score(10);
 			}
+#endif
 			//
 			if (Note_Check_Cool(data.current, data.judge) && data.hit == Normal)
 			{
@@ -404,11 +406,12 @@ void Note::Draw()
 	auto sound = GetSound();
 
 
-	//デバッグ用処理、リリース時には消す
+
+#if _DEBUG
 	DrawFormatString(0, 80, GetColor(0, 0, 0), "現在の再生位置%d", GetSoundCurrentTime(sound.BGM));
-	//DrawFormatString(0, 60, GetColor(0, 0, 0), "音符ID:%d", data.ID[data.ID_cnt]);
-	//DrawFormatString(0, 40, GetColor(0, 0, 0), "出現音符数:%d", data.a_cnt);
-	//DrawFormatString(0, 20, GetColor(0, 0, 0), "判定済みの音符:%d", data.j_cnt);
+#endif
+
+	
 
 }
 

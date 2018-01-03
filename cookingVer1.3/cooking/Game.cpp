@@ -1,6 +1,8 @@
 #include "Usingheaders.h"
 //メインゲームシーン
+#if _DEBUG
 Fps fps;		//デバッグ用にFPSを表示
+#endif
 Sound sound;
 Note note[100];
 File file;
@@ -52,12 +54,14 @@ void Game::Update()
 		note[i].Update();
 	}
 	Player::Update();
+#if _DEBUG
 	fps.Update();
 	if (Key(KEY_INPUT_X) == 1)
 	{
 		SceneManeger::GetInstance()->ChangeScene(new Result);
 	}
 	fps.Wait();
+#endif
 }
 void Game::Draw()
 {
@@ -67,11 +71,11 @@ void Game::Draw()
 	{
 		note[i].Draw();
 	}
-	//あとで消す
+#if _DEBUG
 	DrawFormatString(0, 0, GetColor(255, 0, 0),"得点：%d", Score());
 	
 	fps.Draw();
-
+#endif
 	if (GetSoundCurrentTime(sound.BGM) >= GetSoundTotalTime(sound.BGM) - 100)	//曲が終わったらリザルトへ
 	{
 		SceneManeger::GetInstance()->ChangeScene(new Result);

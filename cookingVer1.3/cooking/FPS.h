@@ -1,3 +1,4 @@
+#if _DEBUG
 #pragma once
 #include "Usingheaders.h"
 
@@ -16,3 +17,4 @@ public:
 	void Draw();
 	void Wait();
 };
+#endif
