@@ -15,7 +15,7 @@ bool Result::Initialize()
 void Result::Update()
 {
 	sound.PlayBGM_BACK();
-	if (Key(KEY_INPUT_X) == 1)
+	if (Key(KEY_INPUT_Z) == 1)
 	{
 		SceneManeger::GetInstance()->ChangeScene(new Title);
 		Score() = 0;

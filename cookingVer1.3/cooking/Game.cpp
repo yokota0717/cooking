@@ -4,7 +4,7 @@
 Fps fps;		//デバッグ用にFPSを表示
 #endif
 Sound sound;
-Note note[100];
+Note note[noteMax];
 File file;
 extern const int
 SCREEN_WIDIH,
@@ -28,13 +28,13 @@ bool Game::Initialize()
 	{
 		return false;
 	}
-	for (int i = 0; i < 100; ++i)
+	for (int i = 0; i < noteMax; ++i)
 	{
 		note[i].SetScore(i, note[i], file);
 	}
 	//note[]のInitialze()の成否チェックは別に行う
-	bool noteInitCheck[100] = {};
-	for (int i = 0; i < 100; ++i) 
+	bool noteInitCheck[noteMax] = {};
+	for (int i = 0; i < noteMax; ++i)
 	{ 
 		noteInitCheck[i] = note[i].Initialize();
 		if (!noteInitCheck[i]) return false;
@@ -49,7 +49,7 @@ void Game::Update()
 {
 	
 	Metronome::Update();
-	for (int i = 0; i < 100; ++i)
+	for (int i = 0; i < noteMax; ++i)
 	{
 		note[i].Update();
 	}
@@ -67,7 +67,7 @@ void Game::Draw()
 {
 	Metronome::Draw();
 	Player::Draw();
-	for (int i = 0; i < 100; ++i)
+	for (int i = 0; i < noteMax; ++i)
 	{
 		note[i].Draw();
 	}
@@ -86,7 +86,7 @@ void Game::Finalize()
 	Metronome::Fin();
 	
 	sound.Fin();
-	for (int i = 0; i < 100; ++i) 
+	for (int i = 0; i < noteMax; ++i)
 	{
 		note[i].Fin();
 	}

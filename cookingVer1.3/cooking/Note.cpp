@@ -11,10 +11,15 @@ bool File::LoadScore()
 {
 
 	//譜面読み込み
-	ifstream ifs_noteJust("./ScoreData/Scoredata1.csv");		//音符のジャストの判定タイミング(※ファイルに書く時間は小数点以下まで書くこと)
+#if _DEBUG
+	ifstream ifs_noteJust("./ScoreData/Scoredata_Debug.csv");	//音符のジャストの判定タイミング(※ファイルに書く時間は小数点以下まで書くこと)
+	ifstream ifs_type("./ScoreData/type_Debug.csv");				//音符の画像とSEのデータ
+	ifstream ifs_appaer("./ScoreData/dir.csv");			    //左右の方向のデータ
+#else
+	ifstream ifs_noteJust("./ScoreData/Scoredata1.csv");	//音符のジャストの判定タイミング(※ファイルに書く時間は小数点以下まで書くこと)
 	ifstream ifs_type("./ScoreData/type.csv");				//音符の画像とSEのデータ
 	ifstream ifs_appaer("./ScoreData/dir.csv");			    //左右の方向のデータ
-
+#endif
 
 	
 	//開かなかったらエラー
@@ -36,7 +41,7 @@ bool File::LoadScore()
 		//文字列をint型に変換
 		judge[j] = stoi(s_judeg);
 		++j;
-		if (i > 100)
+		if (i > noteMax)
 		{
 			break;
 		}
@@ -46,7 +51,7 @@ bool File::LoadScore()
 		//文字列をint型に変換
 		id[i] = stoi(s_ID);
 		++i;
-		if (i > 100)
+		if (i > noteMax)
 		{
 			break;
 		}
@@ -57,7 +62,7 @@ bool File::LoadScore()
 		dir[d] = stoi(s_dir);
 		++d;
 
-		if (d > 100)
+		if (d > noteMax)
 		{
 			break;
 		}
@@ -402,16 +407,12 @@ void Note::Draw()
 		
 	}
 	SetDrawMode(DX_DRAWMODE_NEAREST);	//解除
-	Sound GetSound();
-	auto sound = GetSound();
-
-
 
 #if _DEBUG
+	Sound GetSound();
+	auto sound = GetSound();
 	DrawFormatString(0, 80, GetColor(0, 0, 0), "現在の再生位置%d", GetSoundCurrentTime(sound.BGM));
 #endif
-
-	
 
 }
 

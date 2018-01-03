@@ -1,5 +1,5 @@
 #pragma once
-
+constexpr int noteMax = 120;
 extern const int
 quarterNote,		//四分音符の長さ(ms)
 halfNote;			//二分音符の長さ(ms)
@@ -101,9 +101,9 @@ struct Data		//音符の判定などの情報
 };
 struct File {		//あほっぽい構造体。
 	//一時保管用変数
-	int judge[100] = {};
-	int id[100] = {};
-	int dir[100] = {};
+	int judge[noteMax] = {};
+	int id[noteMax] = {};
+	int dir[noteMax] = {};
 
 	bool LoadScore();	//ファイルの読み込み
 };
