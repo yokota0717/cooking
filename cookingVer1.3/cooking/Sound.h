@@ -21,6 +21,7 @@ enum TYPE
 	jump,			//ジャンプ12
 	slash,			//切る13
 	bell,			//入店音（ベル）14
+	bell2,			//退勤音15
 
 };
 
@@ -30,12 +31,12 @@ class Sound
 private:
 
 	static constexpr int SENUM = 20;
-	int    SE[SENUM];
 	bool   flag;
 
 public:
 
 	TYPE se_type;
+	int    SE[SENUM];
 	int    BGM;
 	bool Initialize();
 	void SetBGM(const TCHAR *FileName);	//BGMとして使いたいファイルのパスを指定

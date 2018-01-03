@@ -1,14 +1,16 @@
-#define _USE_MATH_DEFINES
 #include "Usingheaders.h"
-#include <math.h>
 extern const int
 SCREEN_WIDIH,
 SCREEN_HEIGHT;
 
 bool Title::Initialize()
 {
+	sound.Initialize();
+	sound.InitBGM();	//あほ
+	sound.SetBGM("./Sound/いらっしゃいませ!.ogg");
 	α = 255 / 3;
-	flag = false;
+	startFlag = false;
+	endFlag = false;
 	int c[5];
 	c[0] = bgHandle = LoadGraph("./Graph/背景(仮).png");
 	c[1] = logo.handle = LoadGraph("./Graph/ロゴ(仮).png");
@@ -32,6 +34,7 @@ bool Title::Initialize()
 
 void Title::Update()
 {
+	sound.PlayBGM_LOOP();
 	float l_dy = (100.f - logo.pos.y) / 20.0f;	//フワッとロゴを移動させる
 	logo.pos.y += l_dy;
 	float s_dy = (300.f - s_button.pos.y) / 20.0f;
@@ -40,7 +43,7 @@ void Title::Update()
 	e_button.pos.y += e_dy;
 	float c_dx = (290.f - cursor.pos.x) / 15.0f;
 	cursor.pos.x += c_dx;
-	if (flag == false)
+	if (startFlag == false && endFlag == false)
 	{
 		if (cursor.select == Start && Key(KEY_INPUT_DOWN) == 1)
 		{
@@ -60,10 +63,39 @@ void Title::Update()
 			break;
 		}
 	}
-	if (α < 0)
+	if (α < 0 && endFlag == false)
 	{
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);		//ブレンドモードをオフ
 		SceneManeger::GetInstance()->ChangeScene(new Game);
+	}
+
+	if (α <= 255 && startFlag == false && endFlag == false)
+	{
+		α += 2;
+	}
+	//ゲーム開始
+	if (cursor.select == Start && Key(KEY_INPUT_Z) == 1 && α >= 255)
+	{
+		sound.PlaySE(bell);
+		startFlag = true;
+	}
+	//退勤ベル
+	if (cursor.select == End && Key(KEY_INPUT_Z) == 1 && α >= 255 && CheckSoundMem(sound.SE[bell2]) == 0)
+	{
+		sound.InitBGM();
+		sound.PlaySE(bell2);
+		endFlag = true;
+		
+	}
+	//退勤ベルが鳴り終わったら終了
+	if (CheckSoundMem(sound.SE[bell2]) == 0 && endFlag == true)
+	{
+		Finalize();
+		exit(0);
+	}
+	if (startFlag == true || endFlag == true)
+	{
+		α -= 2;
 	}
 }
 
@@ -75,27 +107,11 @@ void Title::Draw()
 	DrawGraphF(s_button.pos.x, s_button.pos.y, s_button.handle, true);
 	DrawGraphF(e_button.pos.x, e_button.pos.y, e_button.handle, true);
 	DrawGraphF(cursor.pos.x, cursor.pos.y, cursor.handle, true);
-	if (α <= 255 && flag == false)
-	{
-		α += 2;
-	}
-	if (cursor.select == Start && Key(KEY_INPUT_Z) == 1 && α >= 255)
-	{
-		flag = true;
-	}
-	if (cursor.select == End && Key(KEY_INPUT_Z) == 1)
-	{
-		Finalize();
-		exit(0);
-	}
-	if (flag == true)
-	{
-		α -= 2;
-	}
+	DrawFormatString(0, 0, GetColor(255, 255, 255), "%d", CheckSoundMem(sound.SE[bell2]));
 }
 
 void Title::Finalize()
 {
 	InitGraph();
-	//InitSoundMem();	//今のところ音がないので使わない
+	InitSoundMem();
 }

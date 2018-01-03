@@ -1,5 +1,5 @@
 #pragma once
-
+#include "Sound.h"
 class Title : public Scene
 {
 public:
@@ -9,7 +9,9 @@ public:
 	void Finalize()   override;
 
 	int α;		//透過率
-	bool flag;	//フェードアウトフラグ
+	bool startFlag;	//フェードアウトフラグ(開始)
+	bool endFlag;
+	Sound sound;
 	struct POS
 	{
 		void SetPOS(float x, float y)

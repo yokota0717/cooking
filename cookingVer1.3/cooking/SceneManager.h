@@ -10,7 +10,7 @@ protected:
 private:
 	static void DestroyThis()
 	{
-		delete instance;		//シーンのメモリをを解放
+		delete instance;		//シーンのメモリを解放
 	}
 public:
 	explicit SceneManeger() {}
