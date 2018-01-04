@@ -30,7 +30,7 @@ class Sound
 {
 private:
 
-	static constexpr int SENUM = 20;
+	static constexpr int SENUM = 16;
 	bool   flag;
 
 public:
