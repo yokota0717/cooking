@@ -18,7 +18,7 @@ int WINAPI WinMain(HINSTANCE,HINSTANCE,LPSTR,int)
 	auto manager = SceneManeger::GetInstance();
 
 	//Å‰‚É‰f‚éƒV[ƒ“
-	manager->PushScene(new Title);
+	manager->PushScene(new Game);
 
 	while(ScreenFlip() == 0 && ProcessMessage() == 0 && ClearDrawScreen() == 0 && !manager->isEmpty())
 	{

@@ -11,7 +11,6 @@ namespace Player
 	enum Dir {
 		LEFT,
 		RIGHT,
-		TOP,
 		BOTTOM,
 	};
 

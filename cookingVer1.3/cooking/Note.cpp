@@ -3,8 +3,8 @@ extern const int
 SCREEN_WIDIH,
 SCREEN_HEIGHT,
 quarterNote = 461,		//四分音符の長さ(ms)
-halfNote = 923;			//二分音符の長さ(ms)
-
+halfNote = 923,			//二分音符の長さ(ms)
+dottedHalfNote = 1385;	//符点2分
 
 
 bool File::LoadScore()
@@ -75,8 +75,19 @@ bool File::LoadScore()
 void Note::SetScore(int id, Note& note, const File& file) {
 	note.data.judge = file.judge[id];
 	note.data.ID = file.id[id];
-	note.data.d = (file.dir[id] == 1) ? RIGHT : LEFT;
-
+	//note.data.d = (file.dir[id] == 1) ? RIGHT : LEFT;
+	switch (file.dir[id])
+	{
+	case LEFT:
+		note.data.d = LEFT;
+		break;
+	case RIGHT:
+		note.data.d = RIGHT;
+		break;
+	case BOTTOM:
+		note.data.d = BOTTOM;
+		break;
+	}
 	//算出する
 	//N_Type
 	SetN_Type(note);
@@ -101,6 +112,9 @@ void Note::SetN_Type(Note& note){
 	case 6:
 		note.move.note_type = N_rest;
 		break;
+	case 7:
+		note.move.note_type = N_mouse;
+		break;
 	}
 }
 void Note::SetAppearTime(Note& note) {
@@ -111,7 +125,10 @@ void Note::SetAppearTime(Note& note) {
 	case N_rest:
 		note.data.appear = note.data.judge - halfNote;
 		break;
-		
+	case N_mouse:
+		note.data.appear = note.data.judge - dottedHalfNote;
+		//note.data.appear = note.data.judge - halfNote;
+		break;
 	}
 }
 
@@ -135,6 +152,15 @@ void Note::SetBezierData(Note& note) {
 		//dir.yはN_Typeによって変わる
 		note.move.dir.y = (note.move.note_type == N_one) ? float(SCREEN_HEIGHT / 3) : float(SCREEN_HEIGHT / 5);  //要変更
 		break;
+	case BOTTOM:
+		note.move.start.x = float(SCREEN_WIDIH + imageSizeX / 2);
+		note.move.start.y = float(500);
+		note.move.end.x = float(0);	//左端
+		note.move.end.y = 500.0f;		
+		note.move.dir.x = 760;
+		//dir.yはN_Typeによって変わる
+		note.move.dir.y = 400.0f;
+		break;
 	}
 }
 
@@ -146,8 +172,12 @@ void Note::SetSpeed(Note& note) {
 	case N_rest:
 		note.move.speed = float(((630 / 2) - (-imageSizeX / 2)) / halfNote);	//1msで何ピクセル移動するか
 		break;
+	case N_mouse:
+		note.move.speed = -0.2f;	//1msで何ピクセル移動するか
+		//note.move.speed = float(((630 / 2) - (-imageSizeX / 2)) / halfNote);	//1msで何ピクセル移動するか
+		break;
 	}
-}
+}		
 
 //バッド判定
 bool Note_Check_Bad(int c, int j)
@@ -208,20 +238,21 @@ int& Score(int s)
 }
 bool Note::Initialize()
 {
-	int check[6];
+	int check[7];
 	check[0] = LoadDivGraph("./Graph/carrot.png",  4, 4, 1, 100, 100, move.pic_carrot);
 	check[1] = LoadDivGraph("./Graph/onion.png",   4, 4, 1, 100, 100, move.pic_onion);
 	check[2] = LoadDivGraph("./Graph/cabbage.png", 4, 4, 1, 100, 100, move.pic_cabbage);
 	check[3] = LoadDivGraph("./Graph/potato.png",  4, 4, 1, 100, 100, move.pic_potato);
 	check[4] = LoadDivGraph("./Graph/brory.png",   4, 4, 1, 100, 100, move.pic_broccoli);
 	check[5] = LoadDivGraph("./Graph/tomato.png",  4, 4, 1, 100, 100, move.pic_tomato);
+	check[6] = LoadDivGraph("./Graph/rat.png",     4, 4, 1, 100, 100, move.pic_mouse);
 	move.animeCnt = 0;
 	move.state = off;
 	bez.bez = move.start;
 	appearSEplayed = false;
 	data.hit = Normal;
 	start = false;
-	for (int i = 0; i < 6; ++i)
+	for (int i = 0; i < 7; ++i)
 	{
 		if (check[i] == -1)
 		{
@@ -255,12 +286,7 @@ void Note::Update()
 	if (move.state != off) {
 		//移動
 		bez.BezTimeUpdate(move.note_type, data.current, data.appear);
-		//if (data.d == LEFT) {
 		move.pos = bez.MoveBezier2(move.start, move.dir, move.end);
-		//}
-		//else {
-		//	move.pos = bez.MoveBezier2(move.start, move.dir, move.end);
-		//}
 
 	}
 		if (move.state == come) {
@@ -328,6 +354,9 @@ void Note::Update()
 		if (move.pos.y >= 500) {
 			move.state = off;
 		}
+		else if (data.d == BOTTOM && move.pos.x <= 0) {
+			move.state = off;
+		}
 
 
 }
@@ -346,6 +375,7 @@ void Note::Draw()
 		case cabbage: DrawRotaGraphF(move.pos.x, move.pos.y, 1.0, 0.0, move.pic_cabbage[0],  true); break;
 		case potato:  DrawRotaGraphF(move.pos.x, move.pos.y, 1.0, 0.0, move.pic_potato[0],   true); break;
 		case broccoli:DrawRotaGraphF(move.pos.x, move.pos.y, 1.0, 0.0, move.pic_broccoli[0], true); break;
+		case mouse:   DrawRotaGraphF(move.pos.x, move.pos.y, 1.0, 0.0, move.pic_mouse[0],    true); break;
 		}
 		
 	}
@@ -403,6 +433,12 @@ void Note::Draw()
 			move.state = off;
 		}
 		break;
+		case mouse:
+			if ((move.animeCnt / 3) <= 3) 
+			DrawRotaGraphF(move.pos.x, move.pos.y, 1.0, 0.0, move.pic_mouse[3], true);
+			else
+			move.state = off;
+			break;
 		}
 		
 	}
@@ -418,8 +454,5 @@ void Note::Draw()
 
 void Note::Fin()
 {
-	for (int i = 0; i < 4; ++i)
-	{
-		DeleteGraph(move.pic_carrot[i]);
-	}
+	InitGraph();
 }

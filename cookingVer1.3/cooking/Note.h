@@ -2,7 +2,8 @@
 constexpr int noteMax = 120;
 extern const int
 quarterNote,		//四分音符の長さ(ms)
-halfNote;			//二分音符の長さ(ms)
+halfNote,			//二分音符の長さ(ms)
+dottedHalfNote;
 
 
 struct POS
@@ -78,6 +79,7 @@ struct Move		//音符の動き（移動とアニメーション）
 		pic_potato[4],
 		pic_tomato[4],
 	  pic_broccoli[4],
+		 pic_mouse[4],
 		 pic_onion[4];
 
 
