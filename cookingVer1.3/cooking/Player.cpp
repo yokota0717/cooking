@@ -93,6 +93,7 @@ namespace Player {
 		DrawCircle((check.x / 2) + 10, check.y + 90, 50, GetColor(255, 0, 0), false);		//ç∂ (x+10,y+90)
 		DrawCircle(check.x - 145, check.y - 110, 50, GetColor(255, 0, 0), false);//è„(x+10,y+90)
 		DrawCircle(check.x - 145, check.y + 240, 50, GetColor(255, 0, 0), false);//â∫(x+10,y+90)
+		DrawFormatString(0, 100, GetColor(0, 0, 0), "x : %d\n y : %d",cock.x,cock.y );
 #endif
 	}
 

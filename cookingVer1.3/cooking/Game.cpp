@@ -1,4 +1,5 @@
 #include "Usingheaders.h"
+#include "Game_OP.h"
 //メインゲームシーン
 #if _DEBUG
 Fps fps;		//デバッグ用にFPSを表示
@@ -19,6 +20,7 @@ Sound GetSound()
 
 bool Game::Initialize()
 {
+
 	//初期化ミスチェック
 	if (
 		!Player::Initialize() ||

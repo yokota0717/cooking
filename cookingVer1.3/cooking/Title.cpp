@@ -1,8 +1,5 @@
 #include "Usingheaders.h"
-extern const int
-SCREEN_WIDIH,
-SCREEN_HEIGHT;
-
+#include "Game_OP.h"
 bool Title::Initialize()
 {
 	sound.Initialize();
@@ -66,7 +63,7 @@ void Title::Update()
 	if (α < 0 && endFlag == false)
 	{
 		SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);		//ブレンドモードをオフ
-		SceneManeger::GetInstance()->ChangeScene(new Game);
+		SceneManeger::GetInstance()->ChangeScene(new OP);
 	}
 
 	if (α <= 255 && startFlag == false && endFlag == false)
@@ -107,7 +104,6 @@ void Title::Draw()
 	DrawGraphF(s_button.pos.x, s_button.pos.y, s_button.handle, true);
 	DrawGraphF(e_button.pos.x, e_button.pos.y, e_button.handle, true);
 	DrawGraphF(cursor.pos.x, cursor.pos.y, cursor.handle, true);
-	DrawFormatString(0, 0, GetColor(255, 255, 255), "%d", CheckSoundMem(sound.SE[bell2]));
 }
 
 void Title::Finalize()
